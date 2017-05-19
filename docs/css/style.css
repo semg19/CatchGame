@@ -1,0 +1,57 @@
+body {
+    background-color: #666;
+    font-family: Arial, Helvetica, sans-serif;
+    overflow:hidden;
+    margin:0px; padding:0px;
+}
+
+body * {
+    position: absolute;
+    display: block;
+    margin:0px; padding:0px;
+    box-sizing: border-box;
+    background-repeat: no-repeat;
+}
+
+character {
+    background-image: url(../images/character.png);
+    width:122px; height: 158px;
+}
+
+gamescreen {
+    background-image: url(../images/field.png);
+    width:1600px; height:600px;
+}
+
+button {
+    border-radius:5px;
+    padding:10px;
+    background-color: red;
+    color:white;
+    font-size:22px;
+    cursor: pointer;
+    left:40%; top:30%;
+}
+
+container {
+    background-repeat: no-repeat;
+    width:800px; height:600px;
+    left: 50%; top: 50%;
+    transform: translate(-50%, -50%);
+    overflow:hidden;
+}
+
+start{
+    width: 800px;
+    height: 600px;
+    background-repeat: no-repeat;
+    background-size: 100%;
+    background-image: url(../images/openscene.png);
+}
+gameover{
+    width: 800px;
+    height: 600px;
+    background-repeat: no-repeat;
+    background-size: 100%;
+    background-image: url(../images/gameover.jpg);
+}
