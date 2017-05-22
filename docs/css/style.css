@@ -48,10 +48,21 @@ start{
     background-size: 100%;
     background-image: url(../images/openscene.png);
 }
+
+net{
+    background-image: url(../images/net.png);
+    width:400px; height: 297px;
+}
+
 gameover{
     width: 800px;
     height: 600px;
     background-repeat: no-repeat;
     background-size: 100%;
     background-image: url(../images/gameover.jpg);
+}
+
+bomb{
+    background-image: url(../images/apple.png);
+    width:128px; height: 128px;
 }

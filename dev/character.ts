@@ -1,29 +1,32 @@
-///// <reference path="behaviour.ts" />
-
-class Character{
-    
-    private div:HTMLElement;
-    
-    private posX : number;
-    private posY : number;
-
-    private leftSpeed : number = 0;
-    private rightSpeed : number = 0;
-    
+class Character {
     public behaviour: Behaviour;
 
-    constructor(left:number, right:number) {
-        // hier wordt de karakter in aangemaakt
+    public div: HTMLElement;
+    public x: number;
+    public y: number;
+    public net: Net;
+    public xspeed: number;
+    public yspeed: number;
+    public width:number;
+    public height: number;
+
+    constructor(parent: HTMLElement) {
         this.div = document.createElement("character");
-        document.body.appendChild(this.div);
-        
-        // positie
-        this.posX = 20
-        this.posY = 320
-        
-        // keyboard listener
-        window.addEventListener("keydown", this.onKeyDown.bind(this));
-        window.addEventListener("keyup", this.onKeyUp.bind(this));
+        parent.appendChild(this.div);
+
+        this.behaviour = new Idle(this);
+
+        this.width = 122;
+        this.height = 158;
+        this.xspeed = 0;
+        this.yspeed = 0;
+        this.x = 30;
+        this.y = 350;
+
+        this.net = new Net(this.div);
+
+        window.addEventListener("keydown", (e: KeyboardEvent) => this.onKeyDown(e));
+        window.addEventListener("keyup", (e: KeyboardEvent) => this.onKeyUp(e));
     }
 
     private onKeyDown(e: KeyboardEvent): void {
@@ -32,15 +35,10 @@ class Character{
         private onKeyUp(e: KeyboardEvent): void {
         this.behaviour.onKeyUp(e);
     }
+    public draw(): void {
+        this.behaviour.draw();
 
-    
-    // bewegen
-    public move() : void {
-        
-        this.posX = this.posX - this.leftSpeed + this.rightSpeed;
-                        
-        this.div.style.transform = "translate("+this.posX+"px, "+this.posY+"px) scaleX(-1)";
+        this.div.style.transform = "translate(" + this.x + "px," + this.y + "px)";
+        this.net.draw();
     }
-
-    
 }

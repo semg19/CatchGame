@@ -1,42 +1,41 @@
 class Running implements Behaviour {
     char: Character;
 
-    private leftkey : number;
-    private rightkey : number;
-    
-    private leftSpeed : number = 0;
-    private rightSpeed : number = 0;
+    private direction: string;
 
-    private posX : number;
-    private posY : number;
+    constructor(c: Character, direction: string) {
+        this.char = c;
+        this.char.div.className = "running";
+        this.direction = direction;
 
-    // keyboard input zorgt dat de snelheid wordt aangepast
-    public onKeyDown(event:KeyboardEvent):void {
-        switch(event.keyCode){
-        case this.leftkey:
-            this.leftSpeed = 5;
-            break;
-        case this.rightkey:
-            this.rightSpeed = 5;
-            break;
-        }
-    }
-    
-    // speed op 0 alleen als de eigen keys zijn losgelaten
-    public onKeyUp(event:KeyboardEvent):void {
-        switch(event.keyCode){
-        case this.leftkey:
-            this.leftSpeed = 0;
-            break;
-        case this.rightkey:
-            this.rightSpeed = 0;
-            break;
+        if (this.direction == "right") {
+            this.char.xspeed = 2;
+        } else if (this.direction == "left") {
+            this.char.xspeed = -2;
         }
     }
 
-    // bewegen
-    public move() : void {
-        
-        this.posX = this.posX - this.leftSpeed + this.rightSpeed;
+    draw() {
+        this.char.x += this.char.xspeed;
+    }
+
+    onKeyDown(e: KeyboardEvent) {
+        if (e.key == 'ArrowRight' && this.char.behaviour instanceof Running) {
+            this.char.xspeed = 2;
+        }
+        if (e.key == 'ArrowLeft' && this.char.behaviour instanceof Running) {
+            this.char.xspeed = -2;
+        }
+    }
+
+    onKeyUp(e: KeyboardEvent) {
+        if (e.key == 'ArrowRight' && this.char.behaviour instanceof Running) {
+            this.char.xspeed = 0;
+            this.char.behaviour = new Idle(this.char);
+        }
+        if (e.key == 'ArrowLeft' && this.char.behaviour instanceof Running) {
+            this.char.xspeed = 0;
+            this.char.behaviour = new Idle(this.char);
+        }
     }
 }

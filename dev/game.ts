@@ -1,26 +1,13 @@
 /// <reference path="screens/startscreen.ts"/>
+/// <reference path="bomb.ts"/>
 class Game {
-    
-    private screen: any;
-    private char:Character;
+    public static instance:Game;
 
-    private static instance: Game;
+    private screen: FirstScreen;
+
     private score:number = 0;
     
     constructor() {
-        
-        // eigen keyboard input       
-        this.char = new Character(65, 68);
-        
-        // start game loop        
-        requestAnimationFrame(this.gameLoop.bind(this));        
-    }
-    
-    // game loop
-    private gameLoop(){
-        this.char.move();
-        
-        requestAnimationFrame(this.gameLoop.bind(this));
     }
 
     public static getInstance() {
@@ -37,10 +24,6 @@ class Game {
 
     public showGameScreen(): void {
         this.screen = new GameScreen();
-    }
-
-    public gameOver():void{ 
-        this.screen = new GameOver();
     }
     
 } 

@@ -2,17 +2,33 @@
 
 class GameScreen extends FirstScreen {
 
-    private character: Character;
+    private char: Character;
+    private bomb: Bomb;
 
     constructor() {
         super("gamescreen");
-        this.character = new Character(62, 64);
+        this.char = new Character(this.div);
+        this.bomb = new Bomb(this.div);
+
+       
 
         requestAnimationFrame(() => this.gameLoop());
     }
+
+
 
     private gameLoop() {
-        this.character.move();
-        requestAnimationFrame(() => this.gameLoop());
+        this.char.draw();
+        this.bomb.draw();
+     
+        //functie om te kijken of er een collsion is en log dan wat, aangezien er nog niks verder mee wordt gedaan
+        if (Utils.hasOverlap(this.char, this.bomb)) {
+                console.log("Game Over")
+            }
+            
+      
+
+            requestAnimationFrame(() => this.gameLoop());
     }
+
 }
