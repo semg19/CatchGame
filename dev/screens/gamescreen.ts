@@ -21,7 +21,7 @@ class GameScreen extends FirstScreen {
         this.char.draw();
         this.bomb.draw();
      
-        //functie om te kijken of er een collsion is en log dan wat, aangezien er nog niks verder mee wordt gedaan
+        //functie om te kijken of er een collsion is en dit laten zien in de console
         if (Utils.hasOverlap(this.char, this.bomb)) {
                 console.log("Game Over")
             }

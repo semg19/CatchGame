@@ -32,7 +32,7 @@ class Character {
     private onKeyDown(e: KeyboardEvent): void {
         this.behaviour.onKeyDown(e);
     }
-        private onKeyUp(e: KeyboardEvent): void {
+    private onKeyUp(e: KeyboardEvent): void {
         this.behaviour.onKeyUp(e);
     }
     public draw(): void {

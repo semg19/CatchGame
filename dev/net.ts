@@ -6,7 +6,6 @@ class Net {
     public y: number;
     private height: number;
     private width: number;
-
     public speed: number;
 
     constructor(parent: HTMLElement) {
