@@ -18,18 +18,15 @@ class Bomb {
         this.height = 128;
 
         this.x = Math.random() * window.innerWidth;
-        this.y = 400;
-
-
-
+        this.y = 20;
     }
 
     public draw(): void {
 
-        if (this.x <= 0) {
-            this.x += 5;
-        } if (this.x >= 0) {
-            this.x -= 5;
+        if (this.y <= 0) {
+            this.y -= 5;
+        } if (this.y >= 0) {
+            this.y += 5;
         }
 
 

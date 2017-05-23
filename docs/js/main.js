@@ -22,14 +22,14 @@ var Bomb = (function () {
         this.width = 128;
         this.height = 128;
         this.x = Math.random() * window.innerWidth;
-        this.y = 400;
+        this.y = 20;
     }
     Bomb.prototype.draw = function () {
-        if (this.x <= 0) {
-            this.x += 5;
+        if (this.y <= 0) {
+            this.y -= 5;
         }
-        if (this.x >= 0) {
-            this.x -= 5;
+        if (this.y >= 0) {
+            this.y += 5;
         }
         this.div.style.transform = "translate(" + this.x + "px," + this.y + "px)";
     };
@@ -113,10 +113,10 @@ var Net = (function () {
     function Net(parent) {
         this.div = document.createElement("net");
         parent.appendChild(this.div);
-        this.x = 0;
-        this.y = 0.5;
-        this.height = 297;
-        this.width = 400;
+        this.x = 110;
+        this.y = 60;
+        this.height = 77;
+        this.width = 104;
         this.speed = 0;
     }
     Net.prototype.draw = function () {

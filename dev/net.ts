@@ -12,10 +12,10 @@ class Net {
         this.div = document.createElement("net");
         parent.appendChild(this.div);
 
-        this.x = 0;
-        this.y = 0.5;
-        this.height = 297;
-        this.width = 400;
+        this.x = 110;
+        this.y = 60;
+        this.height = 77;
+        this.width = 104;
         this.speed = 0;
     }
 

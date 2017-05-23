@@ -13,8 +13,6 @@ class GameScreen extends FirstScreen {
         requestAnimationFrame(() => this.gameLoop());
     }
 
-
-
     private gameLoop() {
         this.char.draw();
         this.bomb.draw();
