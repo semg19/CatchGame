@@ -186,10 +186,10 @@ var Running = (function () {
     };
     Running.prototype.onKeyDown = function (e) {
         if (e.key == 'ArrowRight' && this.char.behaviour instanceof Running) {
-            this.char.xspeed = 2;
+            this.char.xspeed = 3;
         }
         if (e.key == 'ArrowLeft' && this.char.behaviour instanceof Running) {
-            this.char.xspeed = -2;
+            this.char.xspeed = -3;
         }
     };
     Running.prototype.onKeyUp = function (e) {

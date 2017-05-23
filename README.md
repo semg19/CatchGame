@@ -9,6 +9,8 @@ Game for PRG08
 - In de tsconfig.json zorgt ervoor dat de docs folder gepakt wordt.
 - Class Diagram is te vinden in CatchGame.png
 
+- In de game is de bedoeling dat je de vallende objecten gaat ontwijken. Als je geraakt bent ben je af.
+
 Dit zijn de programmeer principes
 - Interface: Behaviour is een interface en wordt gebruikt voor het gedrag van het character.
 - Static utility method: Ik maak gebruik van Utils (Utils.ts)
