@@ -1,6 +1,8 @@
 # CatchGame
 Game for PRG08
 
+- live versie: https://semg19.github.io/CatchGame/
+
 - Gebruik ctr + shift + b om de code uit te voeren.
 - Typescript code staat in dev map.
 - Javascript, CSS en Html zijn in docs te vinden.

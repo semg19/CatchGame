@@ -219,6 +219,9 @@ var GameScreen = (function (_super) {
         this.bomb.draw();
         if (Utils.hasOverlap(this.char, this.bomb)) {
             console.log("Game Over");
+            this.div.removeChild(this.char.div);
+            this.char = null;
+            this.div.innerHTML = "Game Over";
         }
         requestAnimationFrame(function () { return _this.gameLoop(); });
     };

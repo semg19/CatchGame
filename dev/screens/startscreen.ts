@@ -12,6 +12,7 @@ class StartScreen extends FirstScreen {
 
     }
 
+    //zorgt voor het starten van de game
     onStartClick(): void {
         this.div.remove();
         Game.getInstance().showGameScreen();
