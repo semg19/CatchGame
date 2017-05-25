@@ -134,6 +134,18 @@ var Utils = (function () {
             char.y < bomb.y + bomb.height &&
             char.height + char.y > bomb.y);
     };
+    Utils.checkForScreenBorders = function (char) {
+        if (char.x + (char.width * 1.40) > window.innerWidth) {
+            char.leftBorderHit = true;
+        }
+        else if (char.x + (char.width * 0.15) < 0) {
+            char.leftBorderHit = true;
+        }
+        else {
+            char.leftBorderHit = false;
+            char.rightBorderHit = false;
+        }
+    };
     return Utils;
 }());
 var Dying = (function () {
@@ -182,23 +194,28 @@ var Running = (function () {
         }
     }
     Running.prototype.draw = function () {
-        this.char.x += this.char.xspeed;
+        if (this.toTheRight && !this.char.rightBorderHit) {
+            this.char.x += 3;
+        }
+        else if (this.toTheLeft && !this.char.leftBorderHit) {
+            this.char.x -= 3;
+        }
     };
     Running.prototype.onKeyDown = function (e) {
         if (e.key == 'ArrowRight' && this.char.behaviour instanceof Running) {
-            this.char.xspeed = 3;
+            this.toTheRight = true;
         }
         if (e.key == 'ArrowLeft' && this.char.behaviour instanceof Running) {
-            this.char.xspeed = -3;
+            this.toTheLeft = true;
         }
     };
     Running.prototype.onKeyUp = function (e) {
         if (e.key == 'ArrowRight' && this.char.behaviour instanceof Running) {
-            this.char.xspeed = 0;
+            this.toTheRight = false;
             this.char.behaviour = new Idle(this.char);
         }
         if (e.key == 'ArrowLeft' && this.char.behaviour instanceof Running) {
-            this.char.xspeed = 0;
+            this.toTheRight = false;
             this.char.behaviour = new Idle(this.char);
         }
     };
@@ -223,6 +240,9 @@ var GameScreen = (function (_super) {
             this.char = null;
             this.div.innerHTML = "Game Over";
         }
+        console.log("Right border hit = " + this.char.rightBorderHit);
+        console.log("Left border hit = " + this.char.leftBorderHit);
+        Utils.checkForScreenBorders(this.char);
         requestAnimationFrame(function () { return _this.gameLoop(); });
     };
     return GameScreen;

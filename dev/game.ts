@@ -1,12 +1,12 @@
 /// <reference path="screens/startscreen.ts"/>
 /// <reference path="bomb.ts"/>
 class Game {
-    public static instance:Game;
+    public static instance: Game;
 
     private screen: FirstScreen;
 
-    private score:number = 0;
-    
+    private score: number = 0;
+
     constructor() {
     }
 
@@ -25,5 +25,5 @@ class Game {
     public showGameScreen(): void {
         this.screen = new GameScreen();
     }
-    
+
 } 
