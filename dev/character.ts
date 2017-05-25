@@ -7,8 +7,10 @@ class Character {
     public net: Net;
     public xspeed: number;
     public yspeed: number;
-    public width:number;
+    public width: number;
     public height: number;
+    public leftBorderHit: boolean;
+    public rightBorderHit: boolean;
 
     constructor(parent: HTMLElement) {
         this.div = document.createElement("character");
@@ -37,7 +39,6 @@ class Character {
     }
     public draw(): void {
         this.behaviour.draw();
-
         this.div.style.transform = "translate(" + this.x + "px," + this.y + "px)";
         this.net.draw();
     }
