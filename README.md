@@ -22,3 +22,7 @@ PRG04:
 -   Encapsulation: Elke variabele is private, public of protected. 
 -   Composition: De character heeft een net bij zich.
 -   Inheritance: GameScreen en StartScreen erven van FirstScreen.
+
+Ivo's edits:
+
+- Ik heb border collision toegevoegd aan je game voor de main character, dit is gedaan via een Utility class
