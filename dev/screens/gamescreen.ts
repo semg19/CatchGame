@@ -16,15 +16,20 @@ class GameScreen extends FirstScreen {
     private gameLoop() {
         this.char.draw();
         this.bomb.draw();
-     
+
         //functie om te kijken of er een collsion is en dit laten zien in de console
         if (Utils.hasOverlap(this.char, this.bomb)) {
-                console.log("Game Over")
-                this.div.removeChild(this.char.div);
-                this.char = null;   
-                this.div.innerHTML = "Game Over";
-            }
-            requestAnimationFrame(() => this.gameLoop());
+            console.log("Game Over")
+            this.div.removeChild(this.char.div);
+            this.char = null;
+            this.div.innerHTML = "Game Over";
+        }
+        
+        console.log("Right border hit = " + this.char.rightBorderHit);
+        console.log("Left border hit = " + this.char.leftBorderHit);
+        Utils.checkForScreenBorders(this.char);
+
+        requestAnimationFrame(() => this.gameLoop());
     }
 
 }
