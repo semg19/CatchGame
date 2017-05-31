@@ -4,24 +4,23 @@ var __extends = (this && this.__extends) || function (d, b) {
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
 var GameObject = (function () {
-    function GameObject(parent, name, x, y, width, heigth) {
-        this.x = x;
-        this.y = y;
-        this.width = width;
-        this.height = heigth;
+    function GameObject(name) {
+        this.div = document.createElement(name);
+        this.container = document.getElementById('container');
+        this.container.appendChild(this.div);
     }
     GameObject.prototype.draw = function () {
         this.div.style.transform = "translate(" + this.x + "px," + this.y + "px)";
     };
     return GameObject;
 }());
-var Bomb = (function () {
-    function Bomb(parent) {
-        this.div = document.createElement("bomb");
-        parent.appendChild(this.div);
+var Bomb = (function (_super) {
+    __extends(Bomb, _super);
+    function Bomb(i) {
+        _super.call(this, "bomb");
         this.width = 128;
         this.height = 128;
-        this.x = Math.random() * window.innerWidth;
+        this.x = i * Math.random() * window.innerWidth;
         this.y = 20;
     }
     Bomb.prototype.draw = function () {
@@ -34,7 +33,7 @@ var Bomb = (function () {
         this.div.style.transform = "translate(" + this.x + "px," + this.y + "px)";
     };
     return Bomb;
-}());
+}(GameObject));
 var Character = (function () {
     function Character(parent) {
         var _this = this;
@@ -187,35 +186,30 @@ var Running = (function () {
         this.char.div.className = "running";
         this.direction = direction;
         if (this.direction == "right") {
-            this.char.xspeed = 2;
+            this.char.xspeed = 4;
         }
         else if (this.direction == "left") {
-            this.char.xspeed = -2;
+            this.char.xspeed = -4;
         }
     }
     Running.prototype.draw = function () {
-        if (this.toTheRight && !this.char.rightBorderHit) {
-            this.char.x += 3;
-        }
-        else if (this.toTheLeft && !this.char.leftBorderHit) {
-            this.char.x -= 3;
-        }
+        this.char.x += this.char.xspeed;
     };
     Running.prototype.onKeyDown = function (e) {
         if (e.key == 'ArrowRight' && this.char.behaviour instanceof Running) {
-            this.toTheRight = true;
+            this.char.xspeed = 2;
         }
         if (e.key == 'ArrowLeft' && this.char.behaviour instanceof Running) {
-            this.toTheLeft = true;
+            this.char.xspeed = -2;
         }
     };
     Running.prototype.onKeyUp = function (e) {
         if (e.key == 'ArrowRight' && this.char.behaviour instanceof Running) {
-            this.toTheRight = false;
+            this.char.xspeed = 0;
             this.char.behaviour = new Idle(this.char);
         }
         if (e.key == 'ArrowLeft' && this.char.behaviour instanceof Running) {
-            this.toTheRight = false;
+            this.char.xspeed = 0;
             this.char.behaviour = new Idle(this.char);
         }
     };
@@ -227,18 +221,24 @@ var GameScreen = (function (_super) {
         var _this = this;
         _super.call(this, "gamescreen");
         this.char = new Character(this.div);
-        this.bomb = new Bomb(this.div);
+        this.bombs = new Array();
         requestAnimationFrame(function () { return _this.gameLoop(); });
+        for (var i = 0; i < 20; i++) {
+            this.bombs.push(new Bomb(i));
+        }
     }
     GameScreen.prototype.gameLoop = function () {
         var _this = this;
         this.char.draw();
-        this.bomb.draw();
-        if (Utils.hasOverlap(this.char, this.bomb)) {
-            console.log("Game Over");
-            this.div.removeChild(this.char.div);
-            this.char = null;
-            this.div.innerHTML = "Game Over";
+        for (var _i = 0, _a = this.bombs; _i < _a.length; _i++) {
+            var bomb = _a[_i];
+            if (Utils.hasOverlap(this.char, bomb)) {
+                console.log("Game Over");
+                this.div.removeChild(this.char.div);
+                this.char = null;
+                this.div.innerHTML = "Game Over";
+            }
+            bomb.draw();
         }
         console.log("Right border hit = " + this.char.rightBorderHit);
         console.log("Left border hit = " + this.char.leftBorderHit);

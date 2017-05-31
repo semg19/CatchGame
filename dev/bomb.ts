@@ -1,23 +1,16 @@
 /// <reference path= "gameobject.ts"/>
 
-class Bomb {
+class Bomb extends GameObject{
 
-    public div: HTMLElement;
-    private speed: number;
-    
-    public x:number;
-    public y:number;
-    public width:number;
-    public height:number;   
+    private speed: number; 
 
-    constructor(parent: HTMLElement) {
-        this.div = document.createElement("bomb");
-        parent.appendChild(this.div);
+    constructor(i) {
+        super("bomb");
 
         this.width = 128;
         this.height = 128;
 
-        this.x = Math.random() * window.innerWidth;
+        this.x = i * Math.random() * window.innerWidth;
         this.y = 20;
     }
 
