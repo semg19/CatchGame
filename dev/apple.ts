@@ -1,17 +1,17 @@
 /// <reference path= "gameobject.ts"/>
 
-class Bomb extends GameObject{
+class Apple extends GameObject{
 
     private speed: number; 
 
     constructor(i) {
-        super("bomb");
+        super("apple");
 
         this.width = 128;
         this.height = 128;
 
-        this.x = i * 1000 + (Math.random() * 750);;
-        this.y = 10;
+        this.x = i * 1000 + (Math.random() * 750);
+        this.y = 20;
     }
 
     public draw(): void {

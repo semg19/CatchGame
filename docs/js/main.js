@@ -14,14 +14,35 @@ var GameObject = (function () {
     };
     return GameObject;
 }());
+var Apple = (function (_super) {
+    __extends(Apple, _super);
+    function Apple(i) {
+        _super.call(this, "apple");
+        this.width = 128;
+        this.height = 128;
+        this.x = i * 1000 + (Math.random() * 750);
+        this.y = 20;
+    }
+    Apple.prototype.draw = function () {
+        if (this.y <= 0) {
+            this.y -= 5;
+        }
+        if (this.y >= 0) {
+            this.y += 5;
+        }
+        this.div.style.transform = "translate(" + this.x + "px," + this.y + "px)";
+    };
+    return Apple;
+}(GameObject));
 var Bomb = (function (_super) {
     __extends(Bomb, _super);
     function Bomb(i) {
         _super.call(this, "bomb");
         this.width = 128;
         this.height = 128;
-        this.x = i * Math.random() * window.innerWidth;
-        this.y = 20;
+        this.x = i * 1000 + (Math.random() * 750);
+        ;
+        this.y = 10;
     }
     Bomb.prototype.draw = function () {
         if (this.y <= 0) {
@@ -88,7 +109,6 @@ var StartScreen = (function (_super) {
 }(FirstScreen));
 var Game = (function () {
     function Game() {
-        this.score = 0;
     }
     Game.getInstance = function () {
         if (!Game.instance) {
@@ -102,6 +122,9 @@ var Game = (function () {
     };
     Game.prototype.showGameScreen = function () {
         this.screen = new GameScreen();
+    };
+    Game.prototype.gameOver = function () {
+        this.screen = new GameOverScreen();
     };
     return Game;
 }());
@@ -127,11 +150,11 @@ var Net = (function () {
 var Utils = (function () {
     function Utils() {
     }
-    Utils.hasOverlap = function (char, bomb) {
-        return (char.x < bomb.x + bomb.width &&
-            char.x + char.width > bomb.x &&
-            char.y < bomb.y + bomb.height &&
-            char.height + char.y > bomb.y);
+    Utils.hasOverlap = function (c, o) {
+        return (c.x < o.x + o.width &&
+            c.x + c.width > o.x &&
+            c.y < o.y + o.height &&
+            c.height + c.y > o.y);
     };
     Utils.checkForScreenBorders = function (char) {
         if (char.x + (char.width * 1.40) > window.innerWidth) {
@@ -153,6 +176,8 @@ var Dying = (function () {
         this.char.div.className = "dying";
     }
     Dying.prototype.draw = function () {
+        this.char.behaviour = new Idle(this.char);
+        Game.getInstance().gameOver();
     };
     Dying.prototype.onKeyDown = function (e) {
     };
@@ -174,6 +199,9 @@ var Idle = (function () {
         }
         else if (e.key == 'ArrowLeft' && this.char.behaviour instanceof Idle) {
             this.char.behaviour = new Running(this.char, "left");
+        }
+        else if (e.key == 'Control' && this.char.behaviour instanceof Idle) {
+            this.char.behaviour = new Dying(this.char);
         }
     };
     Idle.prototype.onKeyUp = function (e) {
@@ -215,17 +243,42 @@ var Running = (function () {
     };
     return Running;
 }());
+var GameOverScreen = (function (_super) {
+    __extends(GameOverScreen, _super);
+    function GameOverScreen() {
+        _super.call(this, 'gameover');
+        var btn = document.createElement("button");
+        this.div.appendChild(btn);
+        btn.innerHTML = "Try again";
+        btn.addEventListener("click", this.onClick.bind(this));
+    }
+    GameOverScreen.prototype.onClick = function () {
+        console.log("retry");
+        this.div.remove();
+        Game.getInstance().showStartScreen();
+    };
+    return GameOverScreen;
+}(FirstScreen));
 var GameScreen = (function (_super) {
     __extends(GameScreen, _super);
     function GameScreen() {
         var _this = this;
         _super.call(this, "gamescreen");
+        this.score = 0;
+        this.death = false;
         this.char = new Character(this.div);
         this.bombs = new Array();
+        this.apples = new Array();
         requestAnimationFrame(function () { return _this.gameLoop(); });
-        for (var i = 0; i < 20; i++) {
-            this.bombs.push(new Bomb(i));
-        }
+        setInterval(function () {
+            for (var i = 0; i < (Math.random() * 2) + 1; i++) {
+                _this.apples.push(new Apple(i));
+            }
+            for (var i = 0; i < (Math.random() * 2) + 1; i++) {
+                _this.bombs.push(new Bomb(i));
+            }
+        }, 1000);
+        document.getElementsByTagName("ui")[0].innerHTML = "Score: " + this.score;
     }
     GameScreen.prototype.gameLoop = function () {
         var _this = this;
@@ -233,12 +286,22 @@ var GameScreen = (function (_super) {
         for (var _i = 0, _a = this.bombs; _i < _a.length; _i++) {
             var bomb = _a[_i];
             if (Utils.hasOverlap(this.char, bomb)) {
-                console.log("Game Over");
-                this.div.removeChild(this.char.div);
-                this.char = null;
-                this.div.innerHTML = "Game Over";
+                if (this.death == false) {
+                    this.char.behaviour = new Dying(this.char);
+                    this.death = true;
+                    this.div.remove();
+                    this.char.div.remove();
+                }
             }
             bomb.draw();
+        }
+        for (var _b = 0, _c = this.apples; _b < _c.length; _b++) {
+            var apple = _c[_b];
+            if (Utils.hasOverlap(this.char, apple)) {
+                console.log("+ 1!");
+                document.getElementsByTagName("ui")[0].innerHTML = "Score: " + this.score++;
+            }
+            apple.draw();
         }
         console.log("Right border hit = " + this.char.rightBorderHit);
         console.log("Left border hit = " + this.char.leftBorderHit);

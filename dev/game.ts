@@ -5,8 +5,6 @@ class Game {
 
     private screen: FirstScreen;
 
-    private score: number = 0;
-
     constructor() {
     }
 
@@ -24,6 +22,11 @@ class Game {
 
     public showGameScreen(): void {
         this.screen = new GameScreen();
+    }
+
+    public gameOver():void{
+        // document.getElementById("gamescreen").s(); 
+        this.screen = new GameOverScreen();
     }
 
 } 

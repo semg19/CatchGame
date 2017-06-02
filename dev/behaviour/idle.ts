@@ -15,6 +15,8 @@ class Idle implements Behaviour {
             this.char.behaviour = new Running(this.char, "right");
         } else if (e.key == 'ArrowLeft' && this.char.behaviour instanceof Idle) {
             this.char.behaviour = new Running(this.char, "left");
+        } else if (e.key == 'Control' && this.char.behaviour instanceof Idle) {
+            this.char.behaviour = new Dying(this.char);
         }
     }
     onKeyUp(e: KeyboardEvent) {

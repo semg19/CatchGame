@@ -13,6 +13,13 @@ body * {
     background-repeat: no-repeat;
 }
 
+ui {
+    font-size:42px;
+    color:white;
+    padding:20px;
+    width:100%;
+}
+
 character {
     background-image: url(../images/character.png);
     width:122px; height: 158px;
@@ -63,6 +70,11 @@ gameover{
 }
 
 bomb{
+    background-image: url(../images/bomb.png);
+    width:128px; height: 128px;
+}
+
+apple{
     background-image: url(../images/apple.png);
     width:128px; height: 128px;
 }
