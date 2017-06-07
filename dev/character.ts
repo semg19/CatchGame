@@ -11,7 +11,6 @@ class Character {
     public height: number;
     public leftBorderHit: boolean;
     public rightBorderHit: boolean;
-    public keyStatus: any = {};
 
     constructor(parent: HTMLElement) {
         this.div = document.createElement("character");

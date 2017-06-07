@@ -58,7 +58,6 @@ var Bomb = (function (_super) {
 var Character = (function () {
     function Character(parent) {
         var _this = this;
-        this.keyStatus = {};
         this.div = document.createElement("character");
         parent.appendChild(this.div);
         this.behaviour = new Idle(this);
