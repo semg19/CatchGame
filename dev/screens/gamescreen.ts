@@ -7,6 +7,7 @@ class GameScreen extends FirstScreen {
     public apples: Array<Apple>;
     private score: number = 0;
     private death: Boolean = false;
+    // private gameObjects : Array<GameObject> = new Array<GameObject>();
 
     constructor() {
         super("gamescreen");
@@ -23,8 +24,6 @@ class GameScreen extends FirstScreen {
             this.bombs.push(new Bomb(i));
         }
         }, 1000);
-                
-        document.getElementsByTagName("ui")[0].innerHTML = "Score: " + this.score;
     }
 
     private gameLoop() {
@@ -33,6 +32,7 @@ class GameScreen extends FirstScreen {
         //functie om te kijken of er een collsion is en dit laten zien in de console
         for (let bomb of this.bombs) {
             if (Utils.hasOverlap(this.char, bomb)) {
+                Utils.removeFromGame(bomb,this.bombs);
                 if (this.death == false) {
                     this.char.behaviour = new Dying(this.char);
                     this.death = true;
@@ -45,7 +45,10 @@ class GameScreen extends FirstScreen {
         for (let apple of this.apples) {
             if (Utils.hasOverlap(this.char, apple)) {
                 console.log("+ 1!")
-                document.getElementsByTagName("ui")[0].innerHTML = "Score: " + this.score++;
+                Utils.removeFromGame(apple,this.apples);
+                this.score++
+                let scoreDiv = document.getElementById("score");
+                scoreDiv.innerHTML = "Score: " + this.score;
             }
         apple.draw();
         }

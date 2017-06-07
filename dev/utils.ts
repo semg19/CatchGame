@@ -17,4 +17,12 @@ class Utils {
             char.rightBorderHit = false;
         }
     }; 
+
+    public static removeFromGame(o:GameObject, arr:Array<any>){
+        o.div.remove();
+        let i:number = arr.indexOf(o);
+        if(i != -1) {
+            arr.splice(i, 1);
+        }
+    }
 }
