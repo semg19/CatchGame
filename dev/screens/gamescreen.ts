@@ -7,7 +7,7 @@ class GameScreen extends FirstScreen {
     public apples: Array<Apple>;
     private score: number = 0;
     private death: Boolean = false;
-    // private gameObjects : Array<GameObject> = new Array<GameObject>();
+    private gameObjects : Array<GameObject> = new Array<GameObject>();
 
     constructor() {
         super("gamescreen");
@@ -37,7 +37,6 @@ class GameScreen extends FirstScreen {
                     this.char.behaviour = new Dying(this.char);
                     this.death = true;
                     this.div.remove();
-                    this.char.div.remove();
                 }
             }
         bomb.draw();
@@ -53,8 +52,6 @@ class GameScreen extends FirstScreen {
         apple.draw();
         }
         
-        console.log("Right border hit = " + this.char.rightBorderHit);
-        console.log("Left border hit = " + this.char.leftBorderHit);
         Utils.checkForScreenBorders(this.char);
 
         requestAnimationFrame(() => this.gameLoop());

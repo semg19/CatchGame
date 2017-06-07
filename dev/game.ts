@@ -25,7 +25,7 @@ class Game {
     }
 
     public gameOver():void{
-        // document.getElementById("gamescreen").remove(); 
+        // document.getElementById("gamescreen").remove();
         this.screen = new GameOverScreen();
     }
 

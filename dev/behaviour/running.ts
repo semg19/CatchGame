@@ -1,10 +1,6 @@
 class Running implements Behaviour {
     char: Character;
-
     private direction: string;
-
-    private toTheRight: boolean;
-    private toTheLeft: boolean;
 
     constructor(c: Character, direction: string) {
         this.char = c;
@@ -23,20 +19,20 @@ class Running implements Behaviour {
     }
 
     onKeyDown(e: KeyboardEvent) {
-        if (e.key == 'ArrowRight' && this.char.behaviour instanceof Running) {
+        if (e.keyCode == Enum.Keys.RIGHT && this.char.behaviour instanceof Running) {
             this.char.xspeed = 2;
         }
-        if (e.key == 'ArrowLeft' && this.char.behaviour instanceof Running) {
+        if (e.keyCode == Enum.Keys.LEFT && this.char.behaviour instanceof Running) {
             this.char.xspeed = -2;
         }
     }
 
     onKeyUp(e: KeyboardEvent) {
-        if (e.key == 'ArrowRight' && this.char.behaviour instanceof Running) {
+        if (e.keyCode == Enum.Keys.RIGHT && this.char.behaviour instanceof Running) {
             this.char.xspeed = 0;
             this.char.behaviour = new Idle(this.char);
         }
-        if (e.key == 'ArrowLeft' && this.char.behaviour instanceof Running) {
+        if (e.keyCode == Enum.Keys.LEFT && this.char.behaviour instanceof Running) {
             this.char.xspeed = 0;
             this.char.behaviour = new Idle(this.char);
         }

@@ -58,6 +58,7 @@ var Bomb = (function (_super) {
 var Character = (function () {
     function Character(parent) {
         var _this = this;
+        this.keyStatus = {};
         this.div = document.createElement("character");
         parent.appendChild(this.div);
         this.behaviour = new Idle(this);
@@ -84,6 +85,14 @@ var Character = (function () {
     };
     return Character;
 }());
+var Enum;
+(function (Enum) {
+    (function (Keys) {
+        Keys[Keys["LEFT"] = 37] = "LEFT";
+        Keys[Keys["RIGHT"] = 39] = "RIGHT";
+    })(Enum.Keys || (Enum.Keys = {}));
+    var Keys = Enum.Keys;
+})(Enum || (Enum = {}));
 var FirstScreen = (function () {
     function FirstScreen(name) {
         this.div = document.createElement(name);
@@ -207,14 +216,11 @@ var Idle = (function () {
         this.char.div.className = "idle";
     };
     Idle.prototype.onKeyDown = function (e) {
-        if (e.key == 'ArrowRight' && this.char.behaviour instanceof Idle) {
+        if (e.keyCode == Enum.Keys.RIGHT && this.char.behaviour instanceof Idle) {
             this.char.behaviour = new Running(this.char, "right");
         }
-        else if (e.key == 'ArrowLeft' && this.char.behaviour instanceof Idle) {
+        else if (e.keyCode == Enum.Keys.LEFT && this.char.behaviour instanceof Idle) {
             this.char.behaviour = new Running(this.char, "left");
-        }
-        else if (e.key == 'Control' && this.char.behaviour instanceof Idle) {
-            this.char.behaviour = new Dying(this.char);
         }
     };
     Idle.prototype.onKeyUp = function (e) {
@@ -237,19 +243,19 @@ var Running = (function () {
         this.char.x += this.char.xspeed;
     };
     Running.prototype.onKeyDown = function (e) {
-        if (e.key == 'ArrowRight' && this.char.behaviour instanceof Running) {
+        if (e.keyCode == Enum.Keys.RIGHT && this.char.behaviour instanceof Running) {
             this.char.xspeed = 2;
         }
-        if (e.key == 'ArrowLeft' && this.char.behaviour instanceof Running) {
+        if (e.keyCode == Enum.Keys.LEFT && this.char.behaviour instanceof Running) {
             this.char.xspeed = -2;
         }
     };
     Running.prototype.onKeyUp = function (e) {
-        if (e.key == 'ArrowRight' && this.char.behaviour instanceof Running) {
+        if (e.keyCode == Enum.Keys.RIGHT && this.char.behaviour instanceof Running) {
             this.char.xspeed = 0;
             this.char.behaviour = new Idle(this.char);
         }
-        if (e.key == 'ArrowLeft' && this.char.behaviour instanceof Running) {
+        if (e.keyCode == Enum.Keys.LEFT && this.char.behaviour instanceof Running) {
             this.char.xspeed = 0;
             this.char.behaviour = new Idle(this.char);
         }
@@ -270,6 +276,7 @@ var GameScreen = (function (_super) {
         _super.call(this, "gamescreen");
         this.score = 0;
         this.death = false;
+        this.gameObjects = new Array();
         this.char = new Character(this.div);
         this.bombs = new Array();
         this.apples = new Array();
@@ -294,7 +301,6 @@ var GameScreen = (function (_super) {
                     this.char.behaviour = new Dying(this.char);
                     this.death = true;
                     this.div.remove();
-                    this.char.div.remove();
                 }
             }
             bomb.draw();
@@ -310,8 +316,6 @@ var GameScreen = (function (_super) {
             }
             apple.draw();
         }
-        console.log("Right border hit = " + this.char.rightBorderHit);
-        console.log("Left border hit = " + this.char.leftBorderHit);
         Utils.checkForScreenBorders(this.char);
         requestAnimationFrame(function () { return _this.gameLoop(); });
     };

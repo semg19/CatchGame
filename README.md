@@ -18,10 +18,10 @@ Dit zijn de programmeer principes:
 - Abstract: FirstScreen is een abstracte class.
 - Singleton: De class Game in game.ts heb ik een singleton gemaakt.
 - Strategy: Alle verschillende soorten gedrag (Dying, Running, Idle) heb ik verwerkt bij behaviour.
-- Observer:
-- Namespaces:
-- Polymorphism:
-- Enumeraties:
+- Observer: (??)
+- Namespaces: Keys heeft een namespace die Enum heet.
+- Polymorphism: instanceOf in Idle en Running.
+- Enumeraties: Keys met enum aangemaakt die gebruikt worden in Running en Idle.
 - Game Loop: Ik maak in GameScreen gebruik van de Game Loop.
 
 PRG04:

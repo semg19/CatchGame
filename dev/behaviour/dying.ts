@@ -8,9 +8,6 @@ class Dying implements Behaviour {
     }
 
     draw() {
-        // this.div.removeChild(this.char.div);
-        // this.char = null;
-        // this.div.innerHTML = "Game Over";
         this.char.behaviour = new Idle(this.char);
         Game.getInstance().gameOver();
     }
