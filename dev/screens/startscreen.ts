@@ -8,6 +8,13 @@ class StartScreen extends FirstScreen {
         this.div.appendChild(btn);
         btn.innerHTML = "Start Game";
 
+        btn.onmouseenter = function(){
+            TweenMax.to(btn, 0.2, {boxShadow: "10px 10px"});
+        }
+        btn.onmouseleave = function(){
+            TweenMax.to(btn, 0.2, {boxShadow: "0px 0px"});
+        }
+
         btn.addEventListener("click", this.onStartClick.bind(this));
 
     }

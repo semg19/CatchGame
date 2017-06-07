@@ -99,6 +99,12 @@ var StartScreen = (function (_super) {
         var btn = document.createElement("button");
         this.div.appendChild(btn);
         btn.innerHTML = "Start Game";
+        btn.onmouseenter = function () {
+            TweenMax.to(btn, 0.2, { boxShadow: "10px 10px" });
+        };
+        btn.onmouseleave = function () {
+            TweenMax.to(btn, 0.2, { boxShadow: "0px 0px" });
+        };
         btn.addEventListener("click", this.onStartClick.bind(this));
     }
     StartScreen.prototype.onStartClick = function () {
@@ -247,16 +253,7 @@ var GameOverScreen = (function (_super) {
     __extends(GameOverScreen, _super);
     function GameOverScreen() {
         _super.call(this, 'gameover');
-        var btn = document.createElement("button");
-        this.div.appendChild(btn);
-        btn.innerHTML = "Try again";
-        btn.addEventListener("click", this.onClick.bind(this));
     }
-    GameOverScreen.prototype.onClick = function () {
-        console.log("retry");
-        this.div.remove();
-        Game.getInstance().showStartScreen();
-    };
     return GameOverScreen;
 }(FirstScreen));
 var GameScreen = (function (_super) {
