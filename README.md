@@ -9,21 +9,27 @@ Game for PRG08
 - In de tsconfig.json zorgt ervoor dat de docs folder gepakt wordt.
 - Class Diagram is te vinden in CatchGame.png
 
-- In de game is de bedoeling dat je de vallende objecten gaat ontwijken. Als je geraakt bent ben je af.
+- In de game is de bedoeling dat je zoveel mogelijk appels vangt, als je een bom vangt ben je af.
 
-Dit zijn de programmeer principes
+Dit zijn de programmeer principes:
+- Library: Ik maak gebruik van GreenSock in StartScreen voor de button.
 - Interface: Behaviour is een interface en wordt gebruikt voor het gedrag van het character.
-- Static utility method: Ik maak gebruik van Utils (Utils.ts)
+- Static utility method: Ik maak gebruik van Utils (Utils.ts).
+- Abstract: 
 - Singleton: De class Game in game.ts heb ik een singleton gemaakt.
-- Strategy: Alle verschillende soorten gedrag heb ik verwerkt bij behaviour.
+- Strategy: Alle verschillende soorten gedrag (Dying, Running, Idle) heb ik verwerkt bij behaviour.
+- Observer:
+- Namespaces:
+- Polymorphism:
+- Enumeraties:
+- Game Loop: Ik maak in GameScreen gebruik van de Game Loop.
 
 PRG04:
-
 -   Encapsulation: Elke variabele is private, public of protected. 
 -   Composition: De character heeft een net bij zich.
--   Inheritance: GameScreen en StartScreen erven van FirstScreen.
+-   Inheritance: GameScreen en StartScreen erven van FirstScreen. Apple en Bomb erven van GameObject.
 
-Ivo's edits:
+Ivo's edits deelproduct:
 
 - Ik heb border collision toegevoegd aan je game voor de main character, dit is gedaan via een Utility class
 

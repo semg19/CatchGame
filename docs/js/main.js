@@ -162,6 +162,13 @@ var Utils = (function () {
             c.y < o.y + o.height &&
             c.height + c.y > o.y);
     };
+    Utils.removeFromGame = function (o, arr) {
+        o.div.remove();
+        var i = arr.indexOf(o);
+        if (i != -1) {
+            arr.splice(i, 1);
+        }
+    };
     Utils.checkForScreenBorders = function (char) {
         if (char.x + (char.width * 1.40) > window.innerWidth) {
             char.leftBorderHit = true;
@@ -275,7 +282,6 @@ var GameScreen = (function (_super) {
                 _this.bombs.push(new Bomb(i));
             }
         }, 1000);
-        document.getElementsByTagName("ui")[0].innerHTML = "Score: " + this.score;
     }
     GameScreen.prototype.gameLoop = function () {
         var _this = this;
@@ -283,6 +289,7 @@ var GameScreen = (function (_super) {
         for (var _i = 0, _a = this.bombs; _i < _a.length; _i++) {
             var bomb = _a[_i];
             if (Utils.hasOverlap(this.char, bomb)) {
+                Utils.removeFromGame(bomb, this.bombs);
                 if (this.death == false) {
                     this.char.behaviour = new Dying(this.char);
                     this.death = true;
@@ -296,7 +303,10 @@ var GameScreen = (function (_super) {
             var apple = _c[_b];
             if (Utils.hasOverlap(this.char, apple)) {
                 console.log("+ 1!");
-                document.getElementsByTagName("ui")[0].innerHTML = "Score: " + this.score++;
+                Utils.removeFromGame(apple, this.apples);
+                this.score++;
+                var scoreDiv = document.getElementById("score");
+                scoreDiv.innerHTML = "Score: " + this.score;
             }
             apple.draw();
         }
