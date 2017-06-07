@@ -15,7 +15,11 @@ Dit zijn de programmeer principes:
 - Library: Ik maak gebruik van GreenSock in StartScreen voor de button.
 - Interface: Behaviour is een interface en wordt gebruikt voor het gedrag van het character.
 - Static utility method: Ik maak gebruik van Utils (Utils.ts).
+<<<<<<< HEAD
 - Abstract: FirstScreen is een abstracte class.
+=======
+- Abstract: 
+>>>>>>> f6e8a23b2af1463ebe0c879ddabda047a1061336
 - Singleton: De class Game in game.ts heb ik een singleton gemaakt.
 - Strategy: Alle verschillende soorten gedrag (Dying, Running, Idle) heb ik verwerkt bij behaviour.
 - Observer:
