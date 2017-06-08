@@ -1,6 +1,6 @@
 /// <reference path= "gameobject.ts"/>
 
-class Bomb extends GameObject{
+class Bomb extends GameObject implements Observer{
 
     private speed: number; 
 
@@ -11,7 +11,7 @@ class Bomb extends GameObject{
         this.height = 128;
 
         this.x = i * 1000 + (Math.random() * 750);;
-        this.y = 10;
+        this.y = 1;
     }
 
     public draw(): void {
@@ -24,5 +24,9 @@ class Bomb extends GameObject{
 
 
         this.div.style.transform = "translate(" + this.x + "px," + this.y + "px)";
+    }
+
+    notify(): void {
+        
     }
 }

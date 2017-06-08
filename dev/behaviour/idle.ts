@@ -11,9 +11,9 @@ class Idle implements Behaviour {
     }
 
     onKeyDown(e: KeyboardEvent) {
-        if (e.keyCode == Enum.Keys.RIGHT && this.char.behaviour instanceof Idle) {
+        if (e.keyCode == Keys.RIGHT && this.char.behaviour instanceof Idle) {
             this.char.behaviour = new Running(this.char, "right");
-        } else if (e.keyCode == Enum.Keys.LEFT && this.char.behaviour instanceof Idle) {
+        } else if (e.keyCode == Keys.LEFT && this.char.behaviour instanceof Idle) {
             this.char.behaviour = new Running(this.char, "left");
         } 
     }

@@ -1,9 +1,10 @@
 /// <reference path="screens/startscreen.ts"/>
 /// <reference path="bomb.ts"/>
+
 class Game {
     public static instance: Game;
 
-    private screen: FirstScreen;
+    private screen: Screens.FirstScreen;
 
     constructor() {
     }
@@ -17,16 +18,16 @@ class Game {
     }
 
     public showStartScreen(): void {
-        this.screen = new StartScreen();
+        this.screen = new Screens.StartScreen();
     }
 
     public showGameScreen(): void {
-        this.screen = new GameScreen();
+        this.screen = new Screens.GameScreen();
     }
 
     public gameOver():void{
         // document.getElementById("gamescreen").remove();
-        this.screen = new GameOverScreen();
+        this.screen = new Screens.GameOverScreen();
     }
 
 } 

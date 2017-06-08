@@ -19,20 +19,20 @@ class Running implements Behaviour {
     }
 
     onKeyDown(e: KeyboardEvent) {
-        if (e.keyCode == Enum.Keys.RIGHT && this.char.behaviour instanceof Running) {
+        if (e.keyCode == Keys.RIGHT && this.char.behaviour instanceof Running) {
             this.char.xspeed = 2;
         }
-        if (e.keyCode == Enum.Keys.LEFT && this.char.behaviour instanceof Running) {
+        if (e.keyCode == Keys.LEFT && this.char.behaviour instanceof Running) {
             this.char.xspeed = -2;
         }
     }
 
     onKeyUp(e: KeyboardEvent) {
-        if (e.keyCode == Enum.Keys.RIGHT && this.char.behaviour instanceof Running) {
+        if (e.keyCode == Keys.RIGHT && this.char.behaviour instanceof Running) {
             this.char.xspeed = 0;
             this.char.behaviour = new Idle(this.char);
         }
-        if (e.keyCode == Enum.Keys.LEFT && this.char.behaviour instanceof Running) {
+        if (e.keyCode == Keys.LEFT && this.char.behaviour instanceof Running) {
             this.char.xspeed = 0;
             this.char.behaviour = new Idle(this.char);
         }

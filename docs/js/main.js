@@ -21,7 +21,7 @@ var Apple = (function (_super) {
         this.width = 128;
         this.height = 128;
         this.x = i * 1000 + (Math.random() * 750);
-        this.y = 20;
+        this.y = 1;
     }
     Apple.prototype.draw = function () {
         if (this.y <= 0) {
@@ -42,7 +42,7 @@ var Bomb = (function (_super) {
         this.height = 128;
         this.x = i * 1000 + (Math.random() * 750);
         ;
-        this.y = 10;
+        this.y = 1;
     }
     Bomb.prototype.draw = function () {
         if (this.y <= 0) {
@@ -52,6 +52,8 @@ var Bomb = (function (_super) {
             this.y += 5;
         }
         this.div.style.transform = "translate(" + this.x + "px," + this.y + "px)";
+    };
+    Bomb.prototype.notify = function () {
     };
     return Bomb;
 }(GameObject));
@@ -82,45 +84,54 @@ var Character = (function () {
         this.div.style.transform = "translate(" + this.x + "px," + this.y + "px)";
         this.net.draw();
     };
+    Character.prototype.subscribe = function (o) {
+    };
+    Character.prototype.unsubscribe = function (o) {
+    };
     return Character;
 }());
-var Enum;
-(function (Enum) {
-    (function (Keys) {
-        Keys[Keys["LEFT"] = 37] = "LEFT";
-        Keys[Keys["RIGHT"] = 39] = "RIGHT";
-    })(Enum.Keys || (Enum.Keys = {}));
-    var Keys = Enum.Keys;
-})(Enum || (Enum = {}));
-var FirstScreen = (function () {
-    function FirstScreen(name) {
-        this.div = document.createElement(name);
-        this.container = document.getElementById('container');
-        this.container.appendChild(this.div);
-    }
-    return FirstScreen;
-}());
-var StartScreen = (function (_super) {
-    __extends(StartScreen, _super);
-    function StartScreen() {
-        _super.call(this, 'start');
-        var btn = document.createElement("button");
-        this.div.appendChild(btn);
-        btn.innerHTML = "Start Game";
-        btn.onmouseenter = function () {
-            TweenMax.to(btn, 0.2, { boxShadow: "10px 10px" });
+var Keys;
+(function (Keys) {
+    Keys[Keys["LEFT"] = 37] = "LEFT";
+    Keys[Keys["RIGHT"] = 39] = "RIGHT";
+})(Keys || (Keys = {}));
+var Screens;
+(function (Screens) {
+    var FirstScreen = (function () {
+        function FirstScreen(name) {
+            this.div = document.createElement(name);
+            this.container = document.getElementById('container');
+            this.container.appendChild(this.div);
+        }
+        return FirstScreen;
+    }());
+    Screens.FirstScreen = FirstScreen;
+})(Screens || (Screens = {}));
+var Screens;
+(function (Screens) {
+    var StartScreen = (function (_super) {
+        __extends(StartScreen, _super);
+        function StartScreen() {
+            _super.call(this, 'start');
+            var btn = document.createElement("button");
+            this.div.appendChild(btn);
+            btn.innerHTML = "Start Game";
+            btn.onmouseenter = function () {
+                TweenMax.to(btn, 0.2, { boxShadow: "10px 10px" });
+            };
+            btn.onmouseleave = function () {
+                TweenMax.to(btn, 0.2, { boxShadow: "0px 0px" });
+            };
+            btn.addEventListener("click", this.onStartClick.bind(this));
+        }
+        StartScreen.prototype.onStartClick = function () {
+            this.div.remove();
+            Game.getInstance().showGameScreen();
         };
-        btn.onmouseleave = function () {
-            TweenMax.to(btn, 0.2, { boxShadow: "0px 0px" });
-        };
-        btn.addEventListener("click", this.onStartClick.bind(this));
-    }
-    StartScreen.prototype.onStartClick = function () {
-        this.div.remove();
-        Game.getInstance().showGameScreen();
-    };
-    return StartScreen;
-}(FirstScreen));
+        return StartScreen;
+    }(Screens.FirstScreen));
+    Screens.StartScreen = StartScreen;
+})(Screens || (Screens = {}));
 var Game = (function () {
     function Game() {
     }
@@ -132,13 +143,13 @@ var Game = (function () {
         return Game.instance;
     };
     Game.prototype.showStartScreen = function () {
-        this.screen = new StartScreen();
+        this.screen = new Screens.StartScreen();
     };
     Game.prototype.showGameScreen = function () {
-        this.screen = new GameScreen();
+        this.screen = new Screens.GameScreen();
     };
     Game.prototype.gameOver = function () {
-        this.screen = new GameOverScreen();
+        this.screen = new Screens.GameOverScreen();
     };
     return Game;
 }());
@@ -215,10 +226,10 @@ var Idle = (function () {
         this.char.div.className = "idle";
     };
     Idle.prototype.onKeyDown = function (e) {
-        if (e.keyCode == Enum.Keys.RIGHT && this.char.behaviour instanceof Idle) {
+        if (e.keyCode == Keys.RIGHT && this.char.behaviour instanceof Idle) {
             this.char.behaviour = new Running(this.char, "right");
         }
-        else if (e.keyCode == Enum.Keys.LEFT && this.char.behaviour instanceof Idle) {
+        else if (e.keyCode == Keys.LEFT && this.char.behaviour instanceof Idle) {
             this.char.behaviour = new Running(this.char, "left");
         }
     };
@@ -242,82 +253,92 @@ var Running = (function () {
         this.char.x += this.char.xspeed;
     };
     Running.prototype.onKeyDown = function (e) {
-        if (e.keyCode == Enum.Keys.RIGHT && this.char.behaviour instanceof Running) {
+        if (e.keyCode == Keys.RIGHT && this.char.behaviour instanceof Running) {
             this.char.xspeed = 2;
         }
-        if (e.keyCode == Enum.Keys.LEFT && this.char.behaviour instanceof Running) {
+        if (e.keyCode == Keys.LEFT && this.char.behaviour instanceof Running) {
             this.char.xspeed = -2;
         }
     };
     Running.prototype.onKeyUp = function (e) {
-        if (e.keyCode == Enum.Keys.RIGHT && this.char.behaviour instanceof Running) {
+        if (e.keyCode == Keys.RIGHT && this.char.behaviour instanceof Running) {
             this.char.xspeed = 0;
             this.char.behaviour = new Idle(this.char);
         }
-        if (e.keyCode == Enum.Keys.LEFT && this.char.behaviour instanceof Running) {
+        if (e.keyCode == Keys.LEFT && this.char.behaviour instanceof Running) {
             this.char.xspeed = 0;
             this.char.behaviour = new Idle(this.char);
         }
     };
     return Running;
 }());
-var GameOverScreen = (function (_super) {
-    __extends(GameOverScreen, _super);
-    function GameOverScreen() {
-        _super.call(this, 'gameover');
-    }
-    return GameOverScreen;
-}(FirstScreen));
-var GameScreen = (function (_super) {
-    __extends(GameScreen, _super);
-    function GameScreen() {
-        var _this = this;
-        _super.call(this, "gamescreen");
-        this.score = 0;
-        this.death = false;
-        this.gameObjects = new Array();
-        this.char = new Character(this.div);
-        this.bombs = new Array();
-        this.apples = new Array();
-        requestAnimationFrame(function () { return _this.gameLoop(); });
-        setInterval(function () {
-            for (var i = 0; i < (Math.random() * 2) + 1; i++) {
-                _this.apples.push(new Apple(i));
-            }
-            for (var i = 0; i < (Math.random() * 2) + 1; i++) {
-                _this.bombs.push(new Bomb(i));
-            }
-        }, 1000);
-    }
-    GameScreen.prototype.gameLoop = function () {
-        var _this = this;
-        this.char.draw();
-        for (var _i = 0, _a = this.bombs; _i < _a.length; _i++) {
-            var bomb = _a[_i];
-            if (Utils.hasOverlap(this.char, bomb)) {
-                Utils.removeFromGame(bomb, this.bombs);
-                if (this.death == false) {
-                    this.char.behaviour = new Dying(this.char);
-                    this.death = true;
-                    this.div.remove();
+var Screens;
+(function (Screens) {
+    var GameOverScreen = (function (_super) {
+        __extends(GameOverScreen, _super);
+        function GameOverScreen() {
+            _super.call(this, 'gameover');
+        }
+        return GameOverScreen;
+    }(Screens.FirstScreen));
+    Screens.GameOverScreen = GameOverScreen;
+})(Screens || (Screens = {}));
+var Screens;
+(function (Screens) {
+    var GameScreen = (function (_super) {
+        __extends(GameScreen, _super);
+        function GameScreen() {
+            var _this = this;
+            _super.call(this, "gamescreen");
+            this.score = 0;
+            this.death = false;
+            this.char = new Character(this.div);
+            this.bombs = new Array();
+            this.apples = new Array();
+            requestAnimationFrame(function () { return _this.gameLoop(); });
+            setInterval(function () {
+                for (var i = 0; i < (Math.random() * 2) + 1; i++) {
+                    _this.apples.push(new Apple(i));
                 }
-            }
-            bomb.draw();
+                for (var i = 0; i < (Math.random() * 2) + 1; i++) {
+                    _this.bombs.push(new Bomb(i));
+                }
+            }, 1000);
         }
-        for (var _b = 0, _c = this.apples; _b < _c.length; _b++) {
-            var apple = _c[_b];
-            if (Utils.hasOverlap(this.char, apple)) {
-                console.log("+ 1!");
-                Utils.removeFromGame(apple, this.apples);
-                this.score++;
-                var scoreDiv = document.getElementById("score");
-                scoreDiv.innerHTML = "Score: " + this.score;
+        GameScreen.prototype.gameLoop = function () {
+            var _this = this;
+            this.char.draw();
+            for (var _i = 0, _a = this.bombs; _i < _a.length; _i++) {
+                var bomb = _a[_i];
+                if (Utils.hasOverlap(this.char, bomb)) {
+                    Utils.removeFromGame(bomb, this.bombs);
+                    if (this.death == false) {
+                        this.char.behaviour = new Dying(this.char);
+                        Game.getInstance().gameOver();
+                        this.div.remove();
+                        this.death = true;
+                    }
+                }
+                bomb.draw();
             }
-            apple.draw();
-        }
-        Utils.checkForScreenBorders(this.char);
-        requestAnimationFrame(function () { return _this.gameLoop(); });
-    };
-    return GameScreen;
-}(FirstScreen));
+            for (var _b = 0, _c = this.apples; _b < _c.length; _b++) {
+                var apple = _c[_b];
+                if (Utils.hasOverlap(this.char, apple)) {
+                    console.log("+ 1!");
+                    Utils.removeFromGame(apple, this.apples);
+                    this.score++;
+                    var scoreDiv = document.getElementById("score");
+                    scoreDiv.innerHTML = "Score: " + this.score;
+                }
+                apple.draw();
+            }
+            Utils.checkForScreenBorders(this.char);
+            if (this.death == false) {
+                requestAnimationFrame(function () { return _this.gameLoop(); });
+            }
+        };
+        return GameScreen;
+    }(Screens.FirstScreen));
+    Screens.GameScreen = GameScreen;
+})(Screens || (Screens = {}));
 //# sourceMappingURL=main.js.map

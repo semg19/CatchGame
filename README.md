@@ -19,7 +19,7 @@ Dit zijn de programmeer principes:
 - Singleton: De class Game in game.ts heb ik een singleton gemaakt.
 - Strategy: Alle verschillende soorten gedrag (Dying, Running, Idle) heb ik verwerkt bij behaviour.
 - Observer: (??)
-- Namespaces: Keys heeft een namespace die Enum heet.
+- Namespaces: FirstScreen is een namespace die gebruikt wordt voor de screens.
 - Polymorphism: instanceOf in Idle en Running.
 - Enumeraties: Keys met enum aangemaakt die gebruikt worden in Running en Idle.
 - Game Loop: Ik maak in GameScreen gebruik van de Game Loop.
@@ -29,7 +29,7 @@ PRG04:
 -   Composition: De character heeft een net bij zich.
 -   Inheritance: GameScreen en StartScreen erven van FirstScreen. Apple en Bomb erven van GameObject.
 
-Ivo's edits deelproduct:
+Ivo's edits week 4:
 
 - Ik heb border collision toegevoegd aan je game voor de main character, dit is gedaan via een Utility class
 

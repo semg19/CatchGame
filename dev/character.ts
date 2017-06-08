@@ -1,5 +1,6 @@
-class Character {
+class Character implements Observable{
     public behaviour: Behaviour;
+    private clicks:number;
 
     public div: HTMLElement;
     public x: number;
@@ -41,5 +42,12 @@ class Character {
         this.behaviour.draw();
         this.div.style.transform = "translate(" + this.x + "px," + this.y + "px)";
         this.net.draw();
+    }
+
+    public subscribe(o:Observer):void{
+
+    }
+    public unsubscribe(o:Observer):void{
+
     }
 }

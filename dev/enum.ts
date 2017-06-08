@@ -1,6 +1,4 @@
-namespace Enum {
-    export enum Keys {
-        LEFT = 37,
-        RIGHT = 39
-    }
+enum Keys {
+    LEFT = 37,
+    RIGHT = 39
 }
