@@ -14,9 +14,11 @@ body * {
 }
 
 score {
-    font-size:42px;
+    font-size:30px;
+    font-family: 'Press Start 2P', cursive;
+    text-shadow: 8px 8px 0px black;
     color:white;
-    padding:40px;
+    padding:20px;
     width:100%;
 }
 

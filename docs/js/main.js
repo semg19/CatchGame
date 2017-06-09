@@ -90,11 +90,14 @@ var Character = (function () {
     };
     return Character;
 }());
-var Keys;
-(function (Keys) {
-    Keys[Keys["LEFT"] = 37] = "LEFT";
-    Keys[Keys["RIGHT"] = 39] = "RIGHT";
-})(Keys || (Keys = {}));
+var Enum;
+(function (Enum) {
+    (function (Keys) {
+        Keys[Keys["LEFT"] = 37] = "LEFT";
+        Keys[Keys["RIGHT"] = 39] = "RIGHT";
+    })(Enum.Keys || (Enum.Keys = {}));
+    var Keys = Enum.Keys;
+})(Enum || (Enum = {}));
 var Screens;
 (function (Screens) {
     var FirstScreen = (function () {
@@ -226,10 +229,10 @@ var Idle = (function () {
         this.char.div.className = "idle";
     };
     Idle.prototype.onKeyDown = function (e) {
-        if (e.keyCode == Keys.RIGHT && this.char.behaviour instanceof Idle) {
+        if (e.keyCode == Enum.Keys.RIGHT && this.char.behaviour instanceof Idle) {
             this.char.behaviour = new Running(this.char, "right");
         }
-        else if (e.keyCode == Keys.LEFT && this.char.behaviour instanceof Idle) {
+        else if (e.keyCode == Enum.Keys.LEFT && this.char.behaviour instanceof Idle) {
             this.char.behaviour = new Running(this.char, "left");
         }
     };
@@ -253,19 +256,19 @@ var Running = (function () {
         this.char.x += this.char.xspeed;
     };
     Running.prototype.onKeyDown = function (e) {
-        if (e.keyCode == Keys.RIGHT && this.char.behaviour instanceof Running) {
+        if (e.keyCode == Enum.Keys.RIGHT && this.char.behaviour instanceof Running) {
             this.char.xspeed = 2;
         }
-        if (e.keyCode == Keys.LEFT && this.char.behaviour instanceof Running) {
+        if (e.keyCode == Enum.Keys.LEFT && this.char.behaviour instanceof Running) {
             this.char.xspeed = -2;
         }
     };
     Running.prototype.onKeyUp = function (e) {
-        if (e.keyCode == Keys.RIGHT && this.char.behaviour instanceof Running) {
+        if (e.keyCode == Enum.Keys.RIGHT && this.char.behaviour instanceof Running) {
             this.char.xspeed = 0;
             this.char.behaviour = new Idle(this.char);
         }
-        if (e.keyCode == Keys.LEFT && this.char.behaviour instanceof Running) {
+        if (e.keyCode == Enum.Keys.LEFT && this.char.behaviour instanceof Running) {
             this.char.xspeed = 0;
             this.char.behaviour = new Idle(this.char);
         }

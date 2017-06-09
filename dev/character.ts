@@ -1,6 +1,5 @@
 class Character implements Observable{
     public behaviour: Behaviour;
-    private clicks:number;
 
     public div: HTMLElement;
     public x: number;
