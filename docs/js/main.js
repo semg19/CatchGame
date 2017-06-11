@@ -36,24 +36,31 @@ var Apple = (function (_super) {
 }(GameObject));
 var Bomb = (function (_super) {
     __extends(Bomb, _super);
-    function Bomb(i) {
+    function Bomb(i, c) {
         _super.call(this, "bomb");
         this.width = 128;
         this.height = 128;
+        this.active = true;
+        this.character = c;
+        this.character.subscribe(this);
         this.x = i * 1000 + (Math.random() * 750);
         ;
         this.y = 1;
     }
     Bomb.prototype.draw = function () {
-        if (this.y <= 0) {
-            this.y -= 5;
-        }
-        if (this.y >= 0) {
-            this.y += 5;
+        if (this.active == true) {
+            if (this.y <= 0) {
+                this.y -= 5;
+            }
+            if (this.y >= 0) {
+                this.y += 5;
+            }
         }
         this.div.style.transform = "translate(" + this.x + "px," + this.y + "px)";
     };
     Bomb.prototype.notify = function () {
+        this.active = false;
+        this.div.style.backgroundImage = "url('images/apple.png')";
     };
     return Bomb;
 }(GameObject));
@@ -63,15 +70,18 @@ var Character = (function () {
         this.div = document.createElement("character");
         parent.appendChild(this.div);
         this.behaviour = new Idle(this);
+        this.subscribers = [];
         this.width = 122;
         this.height = 158;
         this.xspeed = 0;
         this.yspeed = 0;
         this.x = 30;
         this.y = 350;
+        this.clicks = 0;
         this.net = new Net(this.div);
         window.addEventListener("keydown", function (e) { return _this.onKeyDown(e); });
         window.addEventListener("keyup", function (e) { return _this.onKeyUp(e); });
+        this.div.addEventListener("click", function (e) { return _this.onClick(e); });
     }
     Character.prototype.onKeyDown = function (e) {
         this.behaviour.onKeyDown(e);
@@ -84,9 +94,26 @@ var Character = (function () {
         this.div.style.transform = "translate(" + this.x + "px," + this.y + "px)";
         this.net.draw();
     };
+    Character.prototype.onClick = function (e) {
+        if (this.clicks > 0) {
+            this.clicks -= 1;
+            this.div.style.backgroundImage = "url('images/apple.png')";
+            this.xspeed = 0;
+            this.yspeed = 0;
+            console.log("Klik");
+            for (var _i = 0, _a = this.subscribers; _i < _a.length; _i++) {
+                var bomb = _a[_i];
+                bomb.notify();
+            }
+            e.stopPropagation();
+        }
+    };
     Character.prototype.subscribe = function (o) {
+        this.subscribers.push(o);
     };
     Character.prototype.unsubscribe = function (o) {
+        var index = this.subscribers.indexOf(o);
+        this.subscribers.splice(index);
     };
     return Character;
 }());
@@ -304,7 +331,7 @@ var Screens;
                     _this.apples.push(new Apple(i));
                 }
                 for (var i = 0; i < (Math.random() * 2) + 1; i++) {
-                    _this.bombs.push(new Bomb(i));
+                    _this.bombs.push(new Bomb(i, _this.char));
                 }
             }, 1000);
         }

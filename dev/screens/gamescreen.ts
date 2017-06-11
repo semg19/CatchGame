@@ -21,7 +21,7 @@ namespace Screens {
                 this.apples.push(new Apple(i));
             }
             for (let i = 0; i < (Math.random() * 2) + 1; i++) {
-                this.bombs.push(new Bomb(i));
+                this.bombs.push(new Bomb(i, this.char));
             }
             }, 1000);
         }
