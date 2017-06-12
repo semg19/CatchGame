@@ -30,6 +30,8 @@ PRG04:
 -   Composition: De character heeft een net bij zich.
 -   Inheritance: GameScreen en StartScreen erven van FirstScreen. Apple en Bomb erven van GameObject.
 
+![alt text](https://github.com/semg19/CatchGame/blob/master/CatchGame.png)
+
 Ivo's edits week 4:
 
 - Ik heb border collision toegevoegd aan je game voor de main character, dit is gedaan via een Utility class
