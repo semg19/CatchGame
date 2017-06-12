@@ -157,7 +157,6 @@ var Screens;
             btn.addEventListener("click", this.onStartClick.bind(this));
         }
         StartScreen.prototype.onStartClick = function () {
-            console.log("Klik");
             this.div.remove();
             Game.getInstance().showGameScreen();
         };
@@ -195,8 +194,6 @@ var Net = (function () {
         parent.appendChild(this.div);
         this.x = 110;
         this.y = 60;
-        this.height = 77;
-        this.width = 104;
         this.speed = 0;
     }
     Net.prototype.draw = function () {
@@ -357,7 +354,6 @@ var Screens;
             for (var _b = 0, _c = this.apples; _b < _c.length; _b++) {
                 var apple = _c[_b];
                 if (Utils.hasOverlap(this.char, apple)) {
-                    console.log("+ 1!");
                     Utils.removeFromGame(apple, this.apples);
                     this.score++;
                     var scoreDiv = document.getElementById("score");

@@ -44,7 +44,6 @@ namespace Screens {
             }
             for (let apple of this.apples) {
                 if (Utils.hasOverlap(this.char, apple)) {
-                    console.log("+ 1!")
                     Utils.removeFromGame(apple,this.apples);
                     this.score++
                     let scoreDiv = document.getElementById("score");

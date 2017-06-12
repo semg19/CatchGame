@@ -51,7 +51,7 @@ class Character implements Observable {
     }
 
     // er is op character geklikt
-    onClick():void {
+    private onClick():void {
 
             this.div.style.backgroundImage = "url('images/clickchar.png')";
 

@@ -31,7 +31,7 @@ class Bomb extends GameObject implements Observer {
         this.div.style.transform = "translate(" + this.x + "px," + this.y + "px)";
     }
 
-    notify(): void {
+    public notify(): void {
         this.active = false;
         this.div.style.backgroundImage = "url('images/explosion.png')";
         setInterval(() => {

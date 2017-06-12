@@ -27,8 +27,7 @@ namespace Screens {
         }
 
         //zorgt voor het starten van de game
-        onStartClick(): void {
-            console.log("Klik");
+         private onStartClick(): void {
             this.div.remove();
             Game.getInstance().showGameScreen();
         }
