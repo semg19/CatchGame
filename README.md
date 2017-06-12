@@ -3,25 +3,26 @@ Game for PRG08
 
 - live versie: https://semg19.github.io/CatchGame/
 
+- Open de terminal en plak dit erin: "git clone https://github.com/semg19/CatchGame.git"
 - Gebruik ctr + shift + b om de code uit te voeren.
 - Typescript code staat in dev map.
 - Javascript, CSS en Html zijn in docs te vinden.
 - In de tsconfig.json zorgt ervoor dat de docs folder gepakt wordt.
 - Class Diagram is te vinden in CatchGame.png
 
-- In de game is de bedoeling dat je zoveel mogelijk appels vangt, als je een bom vangt ben je af.
+- In de game is de bedoeling dat je zoveel mogelijk appels vangt, als je een bom vangt ben je af. Bommen kan je laten exploderen door op de character te klikken. Maar pas op want de bom blijft effectief na de explosie dus let goed op waar je een bom laat exploderen.
 
 Dit zijn de programmeer principes:
 - Library: Ik maak gebruik van GreenSock in StartScreen voor de button.
 - Interface: Behaviour is een interface en wordt gebruikt voor het gedrag van het character.
-- Static utility method: Ik maak gebruik van Utils (Utils.ts).
+- Static utility method: Ik maak gebruik van Utils (utils.ts).
 - Abstract: FirstScreen is een abstracte class.
 - Singleton: De class Game in game.ts heb ik een singleton gemaakt.
 - Strategy: Alle verschillende soorten gedrag (Dying, Running, Idle) heb ik verwerkt bij behaviour.
-- Observer: (??)
-- Namespaces: FirstScreen is een namespace die gebruikt wordt voor de screens.
+- Observer: Character is een observable en Bomb is een observer. Als je op Character klikt gaan de Bombs die in het scherm zijn exploderen.
+- Namespaces: FirstScreen is een namespace die gebruikt wordt voor de screens. Daarnaasr heeft enum ook een namespace die in Idle en Running aangeroepen wordt.
 - Polymorphism: instanceOf in Idle en Running.
-- Enumeraties: Keys met enum aangemaakt die gebruikt worden in Running en Idle.
+- Enumeraties: Keys met enum aangemaakt (enum.ts) die gebruikt worden in Running en Idle.
 - Game Loop: Ik maak in GameScreen gebruik van de Game Loop.
 
 PRG04:
