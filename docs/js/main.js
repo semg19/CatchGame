@@ -333,7 +333,7 @@ var Screens;
                 for (var i = 0; i < (Math.random() * 2) + 1; i++) {
                     _this.bombs.push(new Bomb(i, _this.char));
                 }
-            }, 1000);
+            }, 1500);
         }
         GameScreen.prototype.gameLoop = function () {
             var _this = this;

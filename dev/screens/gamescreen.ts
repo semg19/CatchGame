@@ -24,7 +24,7 @@ namespace Screens {
             for (let i = 0; i < (Math.random() * 2) + 1; i++) {
                 this.bombs.push(new Bomb(i, this.char));
             }
-            }, 1000);
+            }, 1500);
         }
 
         private gameLoop() {
