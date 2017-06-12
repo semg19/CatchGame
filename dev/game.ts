@@ -25,8 +25,7 @@ class Game {
         this.screen = new Screens.GameScreen();
     }
 
-    public gameOver():void{
-        // document.getElementById("gamescreen").remove();
+    public gameOver(): void {
         this.screen = new Screens.GameOverScreen();
     }
 

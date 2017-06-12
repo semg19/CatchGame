@@ -18,7 +18,7 @@ class Utils {
         }
     }; 
 
-    public static removeFromGame(o:GameObject, arr:Array<any>){
+    public static removeFromGame(o:GameObject, arr:Array<any>): void{
         o.div.remove();
         let i:number = arr.indexOf(o);
         if(i != -1) {
