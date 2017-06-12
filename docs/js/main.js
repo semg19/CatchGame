@@ -326,7 +326,7 @@ var Screens;
             this.bombs = new Array();
             this.apples = new Array();
             requestAnimationFrame(function () { return _this.gameLoop(); });
-            setInterval(function () {
+            this.fallInterval = setInterval(function () {
                 for (var i = 0; i < (Math.random() * 2) + 1; i++) {
                     _this.apples.push(new Apple(i));
                 }
@@ -342,12 +342,11 @@ var Screens;
                 var bomb = _a[_i];
                 if (Utils.hasOverlap(this.char, bomb)) {
                     Utils.removeFromGame(bomb, this.bombs);
-                    if (this.death == false) {
-                        this.char.behaviour = new Dying(this.char);
-                        Game.getInstance().gameOver();
-                        this.div.remove();
-                        this.death = true;
-                    }
+                    this.char.behaviour = new Dying(this.char);
+                    Game.getInstance().gameOver();
+                    this.div.remove();
+                    this.death = true;
+                    clearInterval(this.fallInterval);
                 }
                 bomb.draw();
             }

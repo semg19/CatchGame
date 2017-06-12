@@ -8,6 +8,7 @@ namespace Screens {
         public apples: Array<Apple>;
         private score: number = 0;
         private death: Boolean = false;
+        private fallInterval: number;
 
         constructor() {
             super('gamescreen');
@@ -16,7 +17,7 @@ namespace Screens {
             this.apples = new Array<Apple>();
 
             requestAnimationFrame(() => this.gameLoop());
-            setInterval(() => {
+            this.fallInterval = setInterval(() => {
             for (let i = 0; i < (Math.random() * 2) + 1; i++) {
                 this.apples.push(new Apple(i));
             }
@@ -33,19 +34,18 @@ namespace Screens {
             for (let bomb of this.bombs) {
                 if (Utils.hasOverlap(this.char, bomb)) {
                     Utils.removeFromGame(bomb,this.bombs);
-                    if (this.death == false) {
                         this.char.behaviour = new Dying(this.char);
                         Game.getInstance().gameOver();
                         this.div.remove();
                         this.death = true;
-                    }
+                        clearInterval(this.fallInterval);
                 }
             bomb.draw();
             }
             for (let apple of this.apples) {
                 if (Utils.hasOverlap(this.char, apple)) {
                     Utils.removeFromGame(apple,this.apples);
-                    this.score++
+                    this.score++;
                     let scoreDiv = document.getElementById("score");
                     scoreDiv.innerHTML = "Score: " + this.score;
                 }
