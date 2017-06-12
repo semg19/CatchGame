@@ -21,7 +21,7 @@ var Apple = (function (_super) {
         this.width = 128;
         this.height = 128;
         this.x = i * 1000 + (Math.random() * 750);
-        this.y = 1;
+        this.y = 0.1;
     }
     Apple.prototype.draw = function () {
         if (this.y <= 0) {
@@ -45,7 +45,7 @@ var Bomb = (function (_super) {
         this.character.subscribe(this);
         this.x = i * 1000 + (Math.random() * 750);
         ;
-        this.y = 1;
+        this.y = 0.1;
     }
     Bomb.prototype.draw = function () {
         if (this.active == true) {
@@ -59,8 +59,12 @@ var Bomb = (function (_super) {
         this.div.style.transform = "translate(" + this.x + "px," + this.y + "px)";
     };
     Bomb.prototype.notify = function () {
+        var _this = this;
         this.active = false;
-        this.div.style.backgroundImage = "url('images/apple.png')";
+        this.div.style.backgroundImage = "url('images/explosion.png')";
+        setInterval(function () {
+            _this.div.remove();
+        }, 1000);
     };
     return Bomb;
 }(GameObject));
@@ -81,7 +85,7 @@ var Character = (function () {
         this.net = new Net(this.div);
         window.addEventListener("keydown", function (e) { return _this.onKeyDown(e); });
         window.addEventListener("keyup", function (e) { return _this.onKeyUp(e); });
-        this.div.addEventListener("click", function (e) { return _this.onClick(e); });
+        this.div.addEventListener("click", this.onClick.bind(this));
     }
     Character.prototype.onKeyDown = function (e) {
         this.behaviour.onKeyDown(e);
@@ -94,18 +98,11 @@ var Character = (function () {
         this.div.style.transform = "translate(" + this.x + "px," + this.y + "px)";
         this.net.draw();
     };
-    Character.prototype.onClick = function (e) {
-        if (this.clicks > 0) {
-            this.clicks -= 1;
-            this.div.style.backgroundImage = "url('images/apple.png')";
-            this.xspeed = 0;
-            this.yspeed = 0;
-            console.log("Klik");
-            for (var _i = 0, _a = this.subscribers; _i < _a.length; _i++) {
-                var bomb = _a[_i];
-                bomb.notify();
-            }
-            e.stopPropagation();
+    Character.prototype.onClick = function () {
+        this.div.style.backgroundImage = "url('images/clickchar.png')";
+        for (var _i = 0, _a = this.subscribers; _i < _a.length; _i++) {
+            var bomb = _a[_i];
+            bomb.notify();
         }
     };
     Character.prototype.subscribe = function (o) {
@@ -146,6 +143,11 @@ var Screens;
             var btn = document.createElement("button");
             this.div.appendChild(btn);
             btn.innerHTML = "Start Game";
+            var title = document.createElement("title");
+            this.div.appendChild(title);
+            title.innerHTML = "Catch Game";
+            TweenLite.set(title, { x: 315, y: -300 });
+            TweenLite.to(title, 2, { y: 80, ease: Back.easeOut });
             btn.onmouseenter = function () {
                 TweenMax.to(btn, 0.2, { boxShadow: "10px 10px" });
             };
@@ -155,6 +157,7 @@ var Screens;
             btn.addEventListener("click", this.onStartClick.bind(this));
         }
         StartScreen.prototype.onStartClick = function () {
+            console.log("Klik");
             this.div.remove();
             Game.getInstance().showGameScreen();
         };
@@ -284,10 +287,10 @@ var Running = (function () {
     };
     Running.prototype.onKeyDown = function (e) {
         if (e.keyCode == Enum.Keys.RIGHT && this.char.behaviour instanceof Running) {
-            this.char.xspeed = 2;
+            this.char.xspeed = 4;
         }
         if (e.keyCode == Enum.Keys.LEFT && this.char.behaviour instanceof Running) {
-            this.char.xspeed = -2;
+            this.char.xspeed = -4;
         }
     };
     Running.prototype.onKeyUp = function (e) {
@@ -319,7 +322,7 @@ var Screens;
         __extends(GameScreen, _super);
         function GameScreen() {
             var _this = this;
-            _super.call(this, "gamescreen");
+            _super.call(this, 'gamescreen');
             this.score = 0;
             this.death = false;
             this.char = new Character(this.div);

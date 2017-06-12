@@ -1,4 +1,5 @@
-class Character implements Observable{
+class Character implements Observable {
+
     public behaviour: Behaviour;
     private subscribers:Array<Observer>;
     private clicks:number;
@@ -33,7 +34,7 @@ class Character implements Observable{
 
         window.addEventListener("keydown", (e: KeyboardEvent) => this.onKeyDown(e));
         window.addEventListener("keyup", (e: KeyboardEvent) => this.onKeyUp(e));
-        this.div.addEventListener("click", (e:MouseEvent) => this.onClick(e));
+        this.div.addEventListener("click", this.onClick.bind(this));
 
     }
 
@@ -50,21 +51,12 @@ class Character implements Observable{
     }
 
     // er is op character geklikt
-    private onClick(e:MouseEvent):void {
-        if(this.clicks > 0){
-            this.clicks -=1;
+    onClick():void {
 
-            this.div.style.backgroundImage = "url('images/apple.png')";
-            this.xspeed = 0;
-            this.yspeed = 0;
-            console.log("Klik");
+            this.div.style.backgroundImage = "url('images/clickchar.png')";
 
             for (let bomb of this.subscribers) {
                 bomb.notify();
-            } 
-            
-            // hiermee voorkomen we dat window.click ook uitgevoerd wordt
-            e.stopPropagation();
         }
     }
 

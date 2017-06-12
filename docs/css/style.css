@@ -79,3 +79,8 @@ apple{
     background-image: url(../images/apple.png);
     width:128px; height: 128px;
 }
+
+explosion{
+    background-image: url(../images/explosion.png);
+    width:128px; height: 128px;
+}

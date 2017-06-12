@@ -10,7 +10,7 @@ namespace Screens {
         private death: Boolean = false;
 
         constructor() {
-            super("gamescreen");
+            super('gamescreen');
             this.char = new Character(this.div);
             this.bombs = new Array<Bomb>();
             this.apples = new Array<Apple>();

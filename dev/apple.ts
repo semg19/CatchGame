@@ -11,7 +11,7 @@ class Apple extends GameObject{
         this.height = 128;
 
         this.x = i * 1000 + (Math.random() * 750);
-        this.y = 1;
+        this.y = 0.1;
     }
 
     public draw(): void {

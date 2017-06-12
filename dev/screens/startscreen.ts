@@ -9,6 +9,12 @@ namespace Screens {
             this.div.appendChild(btn);
             btn.innerHTML = "Start Game";
 
+            let title = document.createElement("title");
+            this.div.appendChild(title);
+            title.innerHTML = "Catch Game"
+            TweenLite.set(title, {x:315, y:-300});
+            TweenLite.to(title, 2, {y: 80, ease: Back.easeOut});
+
             btn.onmouseenter = function(){
                 TweenMax.to(btn, 0.2, {boxShadow: "10px 10px"});
             }
@@ -22,6 +28,7 @@ namespace Screens {
 
         //zorgt voor het starten van de game
         onStartClick(): void {
+            console.log("Klik");
             this.div.remove();
             Game.getInstance().showGameScreen();
         }

@@ -20,10 +20,10 @@ class Running implements Behaviour {
 
     onKeyDown(e: KeyboardEvent) {
         if (e.keyCode == Enum.Keys.RIGHT && this.char.behaviour instanceof Running) {
-            this.char.xspeed = 2;
+            this.char.xspeed = 4;
         }
         if (e.keyCode == Enum.Keys.LEFT && this.char.behaviour instanceof Running) {
-            this.char.xspeed = -2;
+            this.char.xspeed = -4;
         }
     }
 

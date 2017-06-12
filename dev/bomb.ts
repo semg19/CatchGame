@@ -1,6 +1,6 @@
 /// <reference path= "gameobject.ts"/>
 
-class Bomb extends GameObject implements Observer{
+class Bomb extends GameObject implements Observer {
 
     private speed: number; 
     private active:boolean;
@@ -16,7 +16,7 @@ class Bomb extends GameObject implements Observer{
         this.character.subscribe(this);
 
         this.x = i * 1000 + (Math.random() * 750);;
-        this.y = 1;
+        this.y = 0.1;
     }
 
     public draw(): void {
@@ -33,7 +33,9 @@ class Bomb extends GameObject implements Observer{
 
     notify(): void {
         this.active = false;
-        this.div.style.backgroundImage = "url('images/apple.png')";
-        // setTimeout(this.resume.bind(this), 10 * this.x);
+        this.div.style.backgroundImage = "url('images/explosion.png')";
+        setInterval(() => {
+            this.div.remove();
+        }, 1000);
     }
 }
