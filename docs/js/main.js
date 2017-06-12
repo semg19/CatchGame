@@ -21,14 +21,14 @@ var Apple = (function (_super) {
         this.width = 128;
         this.height = 128;
         this.x = i * 1000 + (Math.random() * 750);
-        this.y = 0.1;
+        this.y = 0.01;
     }
     Apple.prototype.draw = function () {
         if (this.y <= 0) {
-            this.y -= 5;
+            this.y -= 4;
         }
         if (this.y >= 0) {
-            this.y += 5;
+            this.y += 4;
         }
         this.div.style.transform = "translate(" + this.x + "px," + this.y + "px)";
     };
@@ -38,22 +38,22 @@ var Bomb = (function (_super) {
     __extends(Bomb, _super);
     function Bomb(i, c) {
         _super.call(this, "bomb");
-        this.width = 128;
-        this.height = 128;
+        this.width = 70;
+        this.height = 70;
         this.active = true;
         this.character = c;
         this.character.subscribe(this);
         this.x = i * 1000 + (Math.random() * 750);
         ;
-        this.y = 0.1;
+        this.y = 0.01;
     }
     Bomb.prototype.draw = function () {
         if (this.active == true) {
             if (this.y <= 0) {
-                this.y -= 5;
+                this.y -= 7.5;
             }
             if (this.y >= 0) {
-                this.y += 5;
+                this.y += 7.5;
             }
         }
         this.div.style.transform = "translate(" + this.x + "px," + this.y + "px)";
@@ -273,10 +273,10 @@ var Running = (function () {
         this.char.div.className = "running";
         this.direction = direction;
         if (this.direction == "right") {
-            this.char.xspeed = 4;
+            this.char.xspeed = 6;
         }
         else if (this.direction == "left") {
-            this.char.xspeed = -4;
+            this.char.xspeed = -6;
         }
     }
     Running.prototype.draw = function () {
@@ -284,10 +284,10 @@ var Running = (function () {
     };
     Running.prototype.onKeyDown = function (e) {
         if (e.keyCode == Enum.Keys.RIGHT && this.char.behaviour instanceof Running) {
-            this.char.xspeed = 4;
+            this.char.xspeed = 6;
         }
         if (e.keyCode == Enum.Keys.LEFT && this.char.behaviour instanceof Running) {
-            this.char.xspeed = -4;
+            this.char.xspeed = -6;
         }
     };
     Running.prototype.onKeyUp = function (e) {
@@ -327,7 +327,7 @@ var Screens;
             this.apples = new Array();
             requestAnimationFrame(function () { return _this.gameLoop(); });
             this.fallInterval = setInterval(function () {
-                for (var i = 0; i < (Math.random() * 2) + 1; i++) {
+                for (var i = 0; i < (Math.random() * 3) + 2; i++) {
                     _this.apples.push(new Apple(i));
                 }
                 for (var i = 0; i < (Math.random() * 2) + 1; i++) {

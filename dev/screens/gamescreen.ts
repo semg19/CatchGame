@@ -18,7 +18,7 @@ namespace Screens {
 
             requestAnimationFrame(() => this.gameLoop());
             this.fallInterval = setInterval(() => {
-            for (let i = 0; i < (Math.random() * 2) + 1; i++) {
+            for (let i = 0; i < (Math.random() * 3) + 2; i++) {
                 this.apples.push(new Apple(i));
             }
             for (let i = 0; i < (Math.random() * 2) + 1; i++) {

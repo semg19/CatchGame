@@ -11,15 +11,15 @@ class Apple extends GameObject{
         this.height = 128;
 
         this.x = i * 1000 + (Math.random() * 750);
-        this.y = 0.1;
+        this.y = 0.01;
     }
 
     public draw(): void {
 
         if (this.y <= 0) {
-            this.y -= 5;
+            this.y -= 4;
         } if (this.y >= 0) {
-            this.y += 5;
+            this.y += 4;
         }
 
 

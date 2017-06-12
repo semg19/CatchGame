@@ -9,22 +9,22 @@ class Bomb extends GameObject implements Observer {
     constructor(i, c:Character) {
         super("bomb");
 
-        this.width = 128;
-        this.height = 128;
+        this.width = 70;
+        this.height = 70;
         this.active = true;
         this.character = c;
         this.character.subscribe(this);
 
         this.x = i * 1000 + (Math.random() * 750);;
-        this.y = 0.1;
+        this.y = 0.01;
     }
 
     public draw(): void {
             if(this.active == true) {
                 if (this.y <= 0) {
-                    this.y -= 5;
+                    this.y -= 7.5;
                 } if (this.y >= 0) {
-                    this.y += 5;
+                    this.y += 7.5;
                 }
             }
 
