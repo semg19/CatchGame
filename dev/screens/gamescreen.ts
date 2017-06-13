@@ -32,22 +32,32 @@ namespace Screens {
 
             //functie om te kijken of er een collsion is en dit laten zien in de console
             for (let bomb of this.bombs) {
+                if (bomb.y >= 420) {
+                        console.log("delete bomb");
+                        bomb.stop();
+                }
                 if (Utils.hasOverlap(this.char, bomb)) {
                     Utils.removeFromGame(bomb,this.bombs);
-                        this.char.behaviour = new Dying(this.char);
-                        Game.getInstance().gameOver();
-                        this.div.remove();
-                        this.death = true;
-                        clearInterval(this.fallInterval);
+                    this.char.behaviour = new Dying(this.char);
+                    Game.getInstance().gameOver();
+                    this.div.remove();
+                    this.death = true;
+                    clearInterval(this.fallInterval);
                 }
             bomb.draw();
             }
             for (let apple of this.apples) {
+                if (apple.y >= 380) {
+                        apple.stop();
+                }
                 if (Utils.hasOverlap(this.char, apple)) {
                     Utils.removeFromGame(apple,this.apples);
                     this.score++;
                     let scoreDiv = document.getElementById("score");
                     scoreDiv.innerHTML = "Score: " + this.score;
+                    if (apple.y >= 500) {
+                        apple.stop();
+                    }
                 }
             apple.draw();
             }

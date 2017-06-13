@@ -12,14 +12,17 @@ var GameObject = (function () {
     GameObject.prototype.draw = function () {
         this.div.style.transform = "translate(" + this.x + "px," + this.y + "px)";
     };
+    GameObject.prototype.stop = function () {
+        this.div.remove();
+    };
     return GameObject;
 }());
 var Apple = (function (_super) {
     __extends(Apple, _super);
     function Apple(i) {
         _super.call(this, "apple");
-        this.width = 128;
-        this.height = 128;
+        this.width = 70;
+        this.height = 70;
         this.x = i * 1000 + (Math.random() * 750);
         this.y = 0.01;
     }
@@ -340,6 +343,10 @@ var Screens;
             this.char.draw();
             for (var _i = 0, _a = this.bombs; _i < _a.length; _i++) {
                 var bomb = _a[_i];
+                if (bomb.y >= 420) {
+                    console.log("delete bomb");
+                    bomb.stop();
+                }
                 if (Utils.hasOverlap(this.char, bomb)) {
                     Utils.removeFromGame(bomb, this.bombs);
                     this.char.behaviour = new Dying(this.char);
@@ -352,11 +359,17 @@ var Screens;
             }
             for (var _b = 0, _c = this.apples; _b < _c.length; _b++) {
                 var apple = _c[_b];
+                if (apple.y >= 380) {
+                    apple.stop();
+                }
                 if (Utils.hasOverlap(this.char, apple)) {
                     Utils.removeFromGame(apple, this.apples);
                     this.score++;
                     var scoreDiv = document.getElementById("score");
                     scoreDiv.innerHTML = "Score: " + this.score;
+                    if (apple.y >= 500) {
+                        apple.stop();
+                    }
                 }
                 apple.draw();
             }

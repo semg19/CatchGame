@@ -18,4 +18,8 @@ class GameObject {
     public draw(){
         this.div.style.transform = "translate(" + this.x + "px," + this.y + "px)";
     }
+
+    public stop(): void {
+        this.div.remove();
+    }
 }
