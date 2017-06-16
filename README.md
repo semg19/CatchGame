@@ -49,37 +49,37 @@ Goed gedaan Sem, van mij krijg je een dikke voldoende!
 
 ### Week7 Beoordeling door Bas Lokerman | 0912030
 
-- Klassendiagram
-
-- Speelbare game met begin en eind, zonder bugs
+- Klassendiagram:
+Klassendiagram is heel netjes uitgewerkt en alles staat er goed op.
+- Speelbare game met begin en eind, zonder bugs:
 Game is speelbaar en ook er zit een begin en eind in. Het is niet te makkelijk en het houd je score bij. Je kan alleen wel nog links en rechts uit het spel lopen.
-- Library
+- Library:
 Je gebruikt goed de greensock(tweenlite) library om je animatie op het begin scherm uit te voeren.
-- Encapsulation
+- Encapsulation:
 Je gebruikt goed de private, public en protected variables
-- Composition
+- Composition:
 Composition wordt goed gebruitk in de game. Je gamescreen heeft een character, bomb en apple. Character heeft een net bij zich.
-- Inheritance
+- Inheritance:
 Inheritance wordt 2 keer goed toegepast. Op je screens en op je gameobject. (bomb en apple erven van gameobject en gamescreen, startscreen en gameoverscreen erven van firstscreen)
-- Singleton
+- Singleton:
 Game is een singleton je kunt met getInstance() je game ophalen.
-- Observer
+- Observer:
 De bomb is een observer van de character. Zodra er op de character(de observable) wordt geklikt zal de bomb ontploffen 
-- Strategy
+- Strategy:
 Je gebruikt verschillende behaviours voor de character zoals running dying en idle. Deze worden apart aangeroepen als je iets in de game doet.
-- Interface
+- Interface:
 Behaviour wordt gebruikt als interface voor de verschillende behaviours(dying, idle en running).
-- Static
+- Static:
 De utils class is static. Je maakt gebruik hiervan voor bijvoorbeeld de collision van je bomb met de character.
-- Abstract
+- Abstract:
 Firstscreen is een abstracte classe.
-- Namespaces
+- Namespaces:
 De screen is een namespace.
-- Polymorphism
+- Polymorphism:
 Je gebruikt wel instance of maar je hebt niet echt een gezamenlijke array van objecten. 
-- Enumeraties
+- Enumeraties:
 Enum.ts staan verschillende keycodes die gebruikt worden in de game.
-- Game Loop
+- Game Loop:
 Game loop wordt gebruikt in de gamescreen.
 
 ## Beoordeling
