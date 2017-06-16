@@ -52,7 +52,7 @@ Goed gedaan Sem, van mij krijg je een dikke voldoende!
 - Klassendiagram:
 Klassendiagram is heel netjes uitgewerkt en alles staat er goed op.
 - Speelbare game met begin en eind, zonder bugs:
-Game is speelbaar en ook er zit een begin en eind in. Het is niet te makkelijk en het houd je score bij. Je kan alleen wel nog links en rechts uit het spel lopen.
+Game is speelbaar en ook er zit een begin en eind in. Het is niet te makkelijk en het houd je score bij.
 - Library:
 Je gebruikt goed de greensock(tweenlite) library om je animatie op het begin scherm uit te voeren.
 - Encapsulation:
@@ -76,12 +76,13 @@ Firstscreen is een abstracte classe.
 - Namespaces:
 De screen is een namespace.
 - Polymorphism:
-Je gebruikt wel instance of maar je hebt niet echt een gezamenlijke array van objecten. 
+Je gebruikt een gezamelijke array met gameobjecten deze roep je ook appart nog aan. 
 - Enumeraties:
 Enum.ts staan verschillende keycodes die gebruikt worden in de game.
 - Game Loop:
 Game loop wordt gebruikt in de gamescreen.
 
 ## Beoordeling
-Game is voldoende je gebruikt volgens mij alles in de game. Ik weet alleen niet zeker of polymorphism goed wordt toegepast. Maar mischien kun je bomb en apple nog in een array zetten. De game is leuk en is ook best moeilijk om een hoge score te halen. Je zou nog borders kunnen gebruiken zodat de character niet uit de game kan lopen. Verder goede game! 
+Alles wordt gebruikt en de game is volledig speelbaar zonder bugs. Goede game en het is ook best moeilijk om een hoge score te halen. Geen aanmerking alles wordt juist gebruikt. 
+Voldoende
 
