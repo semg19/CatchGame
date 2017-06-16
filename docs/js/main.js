@@ -326,52 +326,48 @@ var Screens;
             this.score = 0;
             this.death = false;
             this.char = new Character(this.div);
-            this.bombs = new Array();
-            this.apples = new Array();
+            this.gameObjects = new Array();
             requestAnimationFrame(function () { return _this.gameLoop(); });
             this.fallInterval = setInterval(function () {
                 for (var i = 0; i < (Math.random() * 3) + 2; i++) {
-                    _this.apples.push(new Apple(i));
+                    _this.gameObjects.push(new Apple(i));
                 }
                 for (var i = 0; i < (Math.random() * 2) + 1; i++) {
-                    _this.bombs.push(new Bomb(i, _this.char));
+                    _this.gameObjects.push(new Bomb(i, _this.char));
                 }
             }, 1500);
         }
         GameScreen.prototype.gameLoop = function () {
             var _this = this;
             this.char.draw();
-            for (var _i = 0, _a = this.bombs; _i < _a.length; _i++) {
-                var bomb = _a[_i];
-                if (bomb.y >= 420) {
-                    console.log("delete bomb");
-                    bomb.stop();
-                }
-                if (Utils.hasOverlap(this.char, bomb)) {
-                    Utils.removeFromGame(bomb, this.bombs);
-                    this.char.behaviour = new Dying(this.char);
-                    Game.getInstance().gameOver();
-                    this.div.remove();
-                    this.death = true;
-                    clearInterval(this.fallInterval);
-                }
-                bomb.draw();
-            }
-            for (var _b = 0, _c = this.apples; _b < _c.length; _b++) {
-                var apple = _c[_b];
-                if (apple.y >= 380) {
-                    apple.stop();
-                }
-                if (Utils.hasOverlap(this.char, apple)) {
-                    Utils.removeFromGame(apple, this.apples);
-                    this.score++;
-                    var scoreDiv = document.getElementById("score");
-                    scoreDiv.innerHTML = "Score: " + this.score;
-                    if (apple.y >= 500) {
-                        apple.stop();
+            for (var _i = 0, _a = this.gameObjects; _i < _a.length; _i++) {
+                var gameObject = _a[_i];
+                if (gameObject instanceof Bomb) {
+                    if (gameObject.y >= 420 && gameObject instanceof Bomb) {
+                        gameObject.stop();
                     }
+                    if (Utils.hasOverlap(this.char, gameObject) && gameObject instanceof Bomb) {
+                        Utils.removeFromGame(gameObject, this.gameObjects);
+                        this.char.behaviour = new Dying(this.char);
+                        Game.getInstance().gameOver();
+                        this.div.remove();
+                        this.death = true;
+                        clearInterval(this.fallInterval);
+                    }
+                    gameObject.draw();
                 }
-                apple.draw();
+                if (gameObject instanceof Apple) {
+                    if (gameObject.y >= 380 && gameObject instanceof Apple) {
+                        gameObject.stop();
+                    }
+                    if (Utils.hasOverlap(this.char, gameObject) && gameObject instanceof Apple) {
+                        Utils.removeFromGame(gameObject, this.gameObjects);
+                        this.score++;
+                        var scoreDiv = document.getElementById("score");
+                        scoreDiv.innerHTML = "Score: " + this.score;
+                    }
+                    gameObject.draw();
+                }
             }
             Utils.checkForScreenBorders(this.char);
             if (this.death == false) {
