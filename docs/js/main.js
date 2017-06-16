@@ -41,8 +41,8 @@ var Bomb = (function (_super) {
     __extends(Bomb, _super);
     function Bomb(i, c) {
         _super.call(this, "bomb");
-        this.width = 70;
-        this.height = 70;
+        this.width = 30;
+        this.height = 30;
         this.active = true;
         this.character = c;
         this.character.subscribe(this);

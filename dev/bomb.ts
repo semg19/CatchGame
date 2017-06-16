@@ -9,8 +9,8 @@ class Bomb extends GameObject implements Observer {
     constructor(i, c:Character) {
         super("bomb");
 
-        this.width = 70;
-        this.height = 70;
+        this.width = 30;
+        this.height = 30;
         this.active = true;
         this.character = c;
         this.character.subscribe(this);
