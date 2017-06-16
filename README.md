@@ -21,7 +21,7 @@ Dit zijn de programmeer principes:
 - Strategy: Alle verschillende soorten gedrag (Dying, Running, Idle) heb ik verwerkt bij behaviour.
 - Observer: Character is een observable en Bomb is een observer. Als je op Character klikt gaan de Bombs die in het scherm zijn exploderen.
 - Namespaces: FirstScreen is een namespace die gebruikt wordt voor de screens. Daarnaasr heeft enum ook een namespace die in Idle en Running aangeroepen wordt.
-- Polymorphism: instanceOf in Idle en Running.
+- Polymorphism: gamescreen.ts maakt gebruik van Array GameObject die vervolgens doormiddel van instanceOf in de gameLoop gebruikt wordt met Bomb en Apple.
 - Enumeraties: Keys met enum aangemaakt (enum.ts) die gebruikt worden in Running en Idle.
 - Game Loop: Ik maak in GameScreen gebruik van de Game Loop.
 
