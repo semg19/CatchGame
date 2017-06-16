@@ -46,3 +46,42 @@ Ik vindt dat het spel voor wat het nu is goed is opgebouwd.
 - Met verschillende game schermen (firstScreen, gameScreen en startScreen) die van elkaar erven maak je gebruik van Inheritance.
 
 Goed gedaan Sem, van mij krijg je een dikke voldoende!
+
+### Week7 Beoordeling door Bas Lokerman | 0912030
+
+- Klassendiagram
+
+- Speelbare game met begin en eind, zonder bugs
+Game is speelbaar en ook er zit een begin en eind in. Het is niet te makkelijk en het houd je score bij. Je kan alleen wel nog links en rechts uit het spel lopen.
+- Library
+Je gebruikt goed de greensock(tweenlite) library om je animatie op het begin scherm uit te voeren.
+- Encapsulation
+Je gebruikt goed de private, public en protected variables
+- Composition
+Composition wordt goed gebruitk in de game. Je gamescreen heeft een character, bomb en apple. Character heeft een net bij zich.
+- Inheritance
+Inheritance wordt 2 keer goed toegepast. Op je screens en op je gameobject. (bomb en apple erven van gameobject en gamescreen, startscreen en gameoverscreen erven van firstscreen)
+- Singleton
+Game is een singleton je kunt met getInstance() je game ophalen.
+- Observer
+De bomb is een observer van de character. Zodra er op de character(de observable) wordt geklikt zal de bomb ontploffen 
+- Strategy
+Je gebruikt verschillende behaviours voor de character zoals running dying en idle. Deze worden apart aangeroepen als je iets in de game doet.
+- Interface
+Behaviour wordt gebruikt als interface voor de verschillende behaviours(dying, idle en running).
+- Static
+De utils class is static. Je maakt gebruik hiervan voor bijvoorbeeld de collision van je bomb met de character.
+- Abstract
+Firstscreen is een abstracte classe.
+- Namespaces
+De screen is een namespace.
+- Polymorphism
+Je gebruikt wel instance of maar je hebt niet echt een gezamenlijke array van objecten. 
+- Enumeraties
+Enum.ts staan verschillende keycodes die gebruikt worden in de game.
+- Game Loop
+Game loop wordt gebruikt in de gamescreen.
+
+## Beoordeling
+Game is voldoende je gebruikt volgens mij alles in de game. Ik weet alleen niet zeker of polymorphism goed wordt toegepast. Maar mischien kun je bomb en apple nog in een array zetten. De game is leuk en is ook best moeilijk om een hoge score te halen. Je zou nog borders kunnen gebruiken zodat de character niet uit de game kan lopen. Verder goede game! 
+
