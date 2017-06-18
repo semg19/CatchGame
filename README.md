@@ -32,7 +32,30 @@ PRG04:
 
 ![alt text](https://github.com/semg19/CatchGame/blob/master/CatchGame.png)
 
-Ivo's edits week 4:
+## Beoordeling
+### Week7 Beoordeling door Bas Lokerman | 0912030
+
+- Klassendiagram: Klassendiagram is heel netjes uitgewerkt en alles staat er goed op.
+Speelbare game met begin en eind, zonder bugs: Game is speelbaar en ook er zit een begin en eind in. Het is niet te makkelijk en het houd je score bij.
+- Library: Je gebruikt goed de greensock(tweenlite) library om je animatie op het begin scherm uit te voeren.
+Encapsulation: Je gebruikt goed de private, public en protected variables
+- Composition: Composition wordt goed gebruitk in de game. Je gamescreen heeft een character, bomb en apple. Character heeft een net bij zich.
+- Inheritance: Inheritance wordt 2 keer goed toegepast. Op je screens en op je gameobject. (bomb en apple erven van gameobject en gamescreen, startscreen en gameoverscreen erven van firstscreen)
+- Singleton: Game is een singleton je kunt met getInstance() je game ophalen.
+- Observer: De bomb is een observer van de character. Zodra er op de character(de observable) wordt geklikt zal de bomb ontploffen
+- Strategy: Je gebruikt verschillende behaviours voor de character zoals running dying en idle. Deze worden apart aangeroepen als je iets in de game doet.
+- Interface: Behaviour wordt gebruikt als interface voor de verschillende behaviours(dying, idle en running).
+- Static: De utils class is static. Je maakt gebruik hiervan voor bijvoorbeeld de collision van je bomb met de character.
+- Abstract: Firstscreen is een abstracte classe.
+- Namespaces: De screen is een namespace.
+- Polymorphism: Je gebruikt een gezamelijke array met gameobjecten deze roep je ook appart nog aan.
+- Enumeraties: Enum.ts staan verschillende keycodes die gebruikt worden in de game.
+- Game Loop: Game loop wordt gebruikt in de gamescreen.
+#### Beoordeling
+
+Alles wordt gebruikt en de game is volledig speelbaar zonder bugs. Goede game en het is ook best moeilijk om een hoge score te halen. Geen aanmerking alles wordt juist gebruikt. Voldoende
+
+### Ivo week 4:
 
 - Ik heb border collision toegevoegd aan je game voor de main character, dit is gedaan via een Utility class
 
