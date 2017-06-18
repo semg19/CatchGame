@@ -51,7 +51,6 @@ Encapsulation: Je gebruikt goed de private, public en protected variables
 - Polymorphism: Je gebruikt een gezamelijke array met gameobjecten deze roep je ook appart nog aan.
 - Enumeraties: Enum.ts staan verschillende keycodes die gebruikt worden in de game.
 - Game Loop: Game loop wordt gebruikt in de gamescreen.
-#### Beoordeling
 
 Alles wordt gebruikt en de game is volledig speelbaar zonder bugs. Goede game en het is ook best moeilijk om een hoge score te halen. Geen aanmerking alles wordt juist gebruikt. Voldoende
 
