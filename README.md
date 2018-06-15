@@ -7,7 +7,7 @@ In de game is de bedoeling dat je zoveel mogelijk appels vangt, als je een bom v
 
 ## Speelbare game
 
-live versie: https://semg19.github.io/CatchGame/
+Live versie: https://semg19.github.io/CatchGame/
 
 ## Installatie
 
@@ -32,23 +32,22 @@ https://github.com/semg19/GamePRG8
 
 ## Singleton
 
-De class Game in game.ts heb ik een singleton gemaakt.
+De class Game in game.ts heb ik een singleton gemaakt. Dit heb ik gedaan zodat ik een reference kan krijgen naar de game en op basis hiervan StartScreen kan tonen.
 
 ## Polymorfisme
 
-in gamescreen.ts wordt gebruik gemakt van Array GameObject die vervolgens doormiddel van instanceOf in de gameLoop gebruikt wordt met Bomb en Apple.
+In gamescreen.ts wordt gebruik gemaakt van Array GameObject die vervolgens doormiddel van instanceOf in de gameLoop gebruikt wordt met Bomb en Apple. Bomb en Apple erven beide van de GameObject class. Deze geeft de functies draw en stop mee. Doordat ze beide deze functies moeten hebben kunnen de Bomb en Apple in een GameObject array gestopt worden. Dit heeft als voordeel dat je niet alle objecten een eigen variabele moet mee geven geven en dat je de Stop en Draw functies van de objecten zelf aan moet roepen. 
 
 ## Strategy
 
-Alle verschillende soorten gedrag (Dying, Running, Idle) heb ik verwerkt bij behaviour.
+Alle verschillende soorten gedrag (Dying, Running, Idle) heb ik verwerkt bij behaviour. In het mapje behaviour staat de interface en de behaviours die daar gebruik van maken. Deze behaviours worden gebruikt om character van gedrag te laten veranderen. Hierdoor is de character class overzichelijker, staan alle behaviours gescheiden van elkaar en is het makkelijker om nieuwe soorten gedrag toe te voegen.
 
 ## Observer
 
-Character is een observable en Bomb is een observer. Als je op Character klikt gaan de Bombs die in het scherm zijn exploderen.
+Character is een observable en Bomb is een observer. Als je op Character klikt gaan de Bombs die in het scherm zijn exploderen. Dit voegt een nieuw spelelement toe aan de game. 
 
 ## Verdere programmeer principes:
 
-- Library: Ik maak gebruik van GreenSock in StartScreen voor de button.
 - Interface: Behaviour is een interface en wordt gebruikt voor het gedrag van het character.
 - Static utility method: Ik maak gebruik van Utils (utils.ts).
 - Abstract: FirstScreen is een abstracte class.
@@ -60,6 +59,11 @@ PRG04:
 -   Encapsulation: Elke variabele is private, public of protected. 
 -   Composition: De character heeft een net bij zich.
 -   Inheritance: GameScreen en StartScreen erven van FirstScreen. Apple en Bomb erven van GameObject.
+
+## Gameplay componenten
+- De game ziet er visueel aantrekkelijk uit. Er is aandacht besteed aan een
+solide UI en aan een consistent grafisch ontwerp: Ik heb een zelfde soort design proberen aan te houden bij de images en de game kindvriendelijk gemaakt. Ook heb ik met het toevoegen van schermen een fijnere visuele ervaring gegeven.
+- De game gebruikt een externe library: Ik maak gebruik van GreenSock in StartScreen voor de button. Dit geeft het StartScreen meer leven en maakt het spel aantrekkelijker om te gaan spelen.
 
 ## Beoordeling
 ### Week7 Beoordeling door Bas Lokerman | 0912030
