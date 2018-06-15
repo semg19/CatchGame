@@ -1,7 +1,15 @@
 # CatchGame
 Game for PRG08
 
-- live versie: https://semg19.github.io/CatchGame/
+## Inleiding
+
+In de game is de bedoeling dat je zoveel mogelijk appels vangt, als je een bom vangt ben je af. Bommen kan je laten exploderen door op de character te klikken. Maar pas op want de bom blijft effectief na de explosie dus let goed op waar je een bom laat exploderen.
+
+## Speelbare game
+
+live versie: https://semg19.github.io/CatchGame/
+
+## Installatie
 
 - Open de terminal en plak dit erin: "git clone https://github.com/semg19/CatchGame.git"
 - Gebruik ctr + shift + b om de code uit te voeren.
@@ -10,18 +18,41 @@ Game for PRG08
 - In de tsconfig.json zorgt ervoor dat de docs folder gepakt wordt.
 - Class Diagram is te vinden in CatchGame.png
 
-- In de game is de bedoeling dat je zoveel mogelijk appels vangt, als je een bom vangt ben je af. Bommen kan je laten exploderen door op de character te klikken. Maar pas op want de bom blijft effectief na de explosie dus let goed op waar je een bom laat exploderen.
+## Klassendiagram
 
-Dit zijn de programmeer principes:
+![alt text](https://github.com/semg19/CatchGame/blob/master/CatchGame.png)
+
+## Pull request
+
+https://github.com/semg19/typescript
+
+## Peer review
+
+https://github.com/semg19/GamePRG8
+
+## Singleton
+
+De class Game in game.ts heb ik een singleton gemaakt.
+
+## Polymorfisme
+
+in gamescreen.ts wordt gebruik gemakt van Array GameObject die vervolgens doormiddel van instanceOf in de gameLoop gebruikt wordt met Bomb en Apple.
+
+## Strategy
+
+Alle verschillende soorten gedrag (Dying, Running, Idle) heb ik verwerkt bij behaviour.
+
+## Observer
+
+Character is een observable en Bomb is een observer. Als je op Character klikt gaan de Bombs die in het scherm zijn exploderen.
+
+## Verdere programmeer principes:
+
 - Library: Ik maak gebruik van GreenSock in StartScreen voor de button.
 - Interface: Behaviour is een interface en wordt gebruikt voor het gedrag van het character.
 - Static utility method: Ik maak gebruik van Utils (utils.ts).
 - Abstract: FirstScreen is een abstracte class.
-- Singleton: De class Game in game.ts heb ik een singleton gemaakt.
-- Strategy: Alle verschillende soorten gedrag (Dying, Running, Idle) heb ik verwerkt bij behaviour.
-- Observer: Character is een observable en Bomb is een observer. Als je op Character klikt gaan de Bombs die in het scherm zijn exploderen.
 - Namespaces: FirstScreen is een namespace die gebruikt wordt voor de screens. Daarnaasr heeft enum ook een namespace die in Idle en Running aangeroepen wordt.
-- Polymorphism: gamescreen.ts maakt gebruik van Array GameObject die vervolgens doormiddel van instanceOf in de gameLoop gebruikt wordt met Bomb en Apple.
 - Enumeraties: Keys met enum aangemaakt (enum.ts) die gebruikt worden in Running en Idle.
 - Game Loop: Ik maak in GameScreen gebruik van de Game Loop.
 
@@ -29,8 +60,6 @@ PRG04:
 -   Encapsulation: Elke variabele is private, public of protected. 
 -   Composition: De character heeft een net bij zich.
 -   Inheritance: GameScreen en StartScreen erven van FirstScreen. Apple en Bomb erven van GameObject.
-
-![alt text](https://github.com/semg19/CatchGame/blob/master/CatchGame.png)
 
 ## Beoordeling
 ### Week7 Beoordeling door Bas Lokerman | 0912030
