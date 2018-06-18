@@ -1,5 +1,5 @@
 interface Behaviour {
-    chars: Array<Character>;
+    char: Character;
     onKeyDown(e: KeyboardEvent): void;
     onKeyUp(e: KeyboardEvent): void;
     draw(): void

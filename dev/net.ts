@@ -1,4 +1,4 @@
-///// <reference path="character.ts" />
+///// <reference path="alien.ts" />
 
 class Net {
     public div: HTMLElement;

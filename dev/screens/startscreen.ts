@@ -2,6 +2,7 @@
 
 namespace Screens {
     export class StartScreen extends FirstScreen {
+
         constructor() {
             super('start');
 

@@ -1,37 +1,24 @@
 class Idle implements Behaviour {
-    chars: Array<Character>;
+    char: Alien;
 
-    constructor(c: Character) {
-        this.chars = new Array<Character>();
-        for (let char of this.chars) {
-            char = c;
-        }
+    constructor(c: Alien) {
+        this.char = c;
+        this.char.div.className = "idle";
+        this.char.div.style.backgroundImage = "url(images/character.png)";
+
     }
 
     draw() {
-        for (let char of this.chars) {
-            char.xspeed = 0;
-            char.div.className = "idle";
-        }
+        this.char.xspeed = 0;
+        this.char.div.className = "idle";
     }
 
     onKeyDown(e: KeyboardEvent) {
-        for (let char of this.chars) {
-            if (char instanceof Alien) {
-                if (e.keyCode == Enum.Keys.RIGHT && char.behaviour instanceof Idle) {
-                    char.behaviour = new Running(char, "right");
-                } else if (e.keyCode == Enum.Keys.LEFT && char.behaviour instanceof Idle) {
-                    char.behaviour = new Running(char, "left");
-                } 
-            }
-            if (char instanceof Astronaut) {
-                if (e.keyCode == Enum.Keys.D && char.behaviour instanceof Idle) {
-                    char.behaviour = new Running(char, "d");
-                } else if (e.keyCode == Enum.Keys.A && char.behaviour instanceof Idle) {
-                    char.behaviour = new Running(char, "a");
-                } 
-            }
-        }
+        if (e.keyCode == Enum.Keys.RIGHT && this.char.behaviour instanceof Idle) {
+            this.char.behaviour = new Running(this.char, "right");
+        } else if (e.keyCode == Enum.Keys.LEFT && this.char.behaviour instanceof Idle) {
+            this.char.behaviour = new Running(this.char, "left");
+        } 
     }
 
     onKeyUp(e: KeyboardEvent) {
