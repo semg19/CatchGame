@@ -3,6 +3,66 @@ var __extends = (this && this.__extends) || function (d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
+var Character = (function () {
+    function Character(name) {
+        var _this = this;
+        this.div = document.createElement(name);
+        this.container = document.getElementById('container');
+        this.container.appendChild(this.div);
+        this.behaviour = new Idle(this);
+        this.subscribers = [];
+        this.width = 122;
+        this.height = 158;
+        this.xspeed = 0;
+        this.yspeed = 0;
+        this.clicks = 0;
+        this.net = new Net(this.div);
+        window.addEventListener("keydown", function (e) { return _this.onKeyDown(e); });
+        window.addEventListener("keyup", function (e) { return _this.onKeyUp(e); });
+        this.div.addEventListener("click", this.onClick.bind(this));
+    }
+    Character.prototype.onKeyDown = function (e) {
+        this.behaviour.onKeyDown(e);
+    };
+    Character.prototype.onKeyUp = function (e) {
+        this.behaviour.onKeyUp(e);
+    };
+    Character.prototype.draw = function () {
+        this.behaviour.draw();
+        this.div.style.transform = "translate(" + this.x + "px," + this.y + "px)";
+        this.net.draw();
+    };
+    Character.prototype.onClick = function () {
+        for (var _i = 0, _a = this.subscribers; _i < _a.length; _i++) {
+            var bomb = _a[_i];
+            bomb.notify();
+        }
+    };
+    Character.prototype.subscribe = function (o) {
+        this.subscribers.push(o);
+    };
+    Character.prototype.unsubscribe = function (o) {
+        var index = this.subscribers.indexOf(o);
+        this.subscribers.splice(index);
+    };
+    return Character;
+}());
+var Alien = (function (_super) {
+    __extends(Alien, _super);
+    function Alien() {
+        _super.call(this, "alien");
+        this.x = 30;
+        this.y = 350;
+    }
+    Alien.prototype.onClick = function () {
+        this.div.style.backgroundImage = "url('images/clickchar.png')";
+        for (var _i = 0, _a = this.subscribers; _i < _a.length; _i++) {
+            var bomb = _a[_i];
+            bomb.notify();
+        }
+    };
+    return Alien;
+}(Character));
 var GameObject = (function () {
     function GameObject(name) {
         this.div = document.createElement(name);
@@ -37,15 +97,31 @@ var Apple = (function (_super) {
     };
     return Apple;
 }(GameObject));
+var Astronaut = (function (_super) {
+    __extends(Astronaut, _super);
+    function Astronaut() {
+        _super.call(this, "astronaut");
+        this.x = 200;
+        this.y = 350;
+    }
+    Astronaut.prototype.onClick = function () {
+        this.div.style.backgroundImage = "url('images/clickast.png')";
+        for (var _i = 0, _a = this.subscribers; _i < _a.length; _i++) {
+            var bomb = _a[_i];
+            bomb.notify();
+        }
+    };
+    return Astronaut;
+}(Character));
 var Bomb = (function (_super) {
     __extends(Bomb, _super);
-    function Bomb(i, c) {
+    function Bomb(i, a) {
         _super.call(this, "bomb");
         this.width = 30;
         this.height = 30;
         this.active = true;
-        this.character = c;
-        this.character.subscribe(this);
+        this.char = a;
+        this.char.subscribe(this);
         this.x = i * 1000 + (Math.random() * 750);
         ;
         this.y = 0.01;
@@ -71,57 +147,13 @@ var Bomb = (function (_super) {
     };
     return Bomb;
 }(GameObject));
-var Character = (function () {
-    function Character(parent) {
-        var _this = this;
-        this.div = document.createElement("character");
-        parent.appendChild(this.div);
-        this.behaviour = new Idle(this);
-        this.subscribers = [];
-        this.width = 122;
-        this.height = 158;
-        this.xspeed = 0;
-        this.yspeed = 0;
-        this.x = 30;
-        this.y = 350;
-        this.clicks = 0;
-        this.net = new Net(this.div);
-        window.addEventListener("keydown", function (e) { return _this.onKeyDown(e); });
-        window.addEventListener("keyup", function (e) { return _this.onKeyUp(e); });
-        this.div.addEventListener("click", this.onClick.bind(this));
-    }
-    Character.prototype.onKeyDown = function (e) {
-        this.behaviour.onKeyDown(e);
-    };
-    Character.prototype.onKeyUp = function (e) {
-        this.behaviour.onKeyUp(e);
-    };
-    Character.prototype.draw = function () {
-        this.behaviour.draw();
-        this.div.style.transform = "translate(" + this.x + "px," + this.y + "px)";
-        this.net.draw();
-    };
-    Character.prototype.onClick = function () {
-        this.div.style.backgroundImage = "url('images/clickchar.png')";
-        for (var _i = 0, _a = this.subscribers; _i < _a.length; _i++) {
-            var bomb = _a[_i];
-            bomb.notify();
-        }
-    };
-    Character.prototype.subscribe = function (o) {
-        this.subscribers.push(o);
-    };
-    Character.prototype.unsubscribe = function (o) {
-        var index = this.subscribers.indexOf(o);
-        this.subscribers.splice(index);
-    };
-    return Character;
-}());
 var Enum;
 (function (Enum) {
     (function (Keys) {
         Keys[Keys["LEFT"] = 37] = "LEFT";
         Keys[Keys["RIGHT"] = 39] = "RIGHT";
+        Keys[Keys["A"] = 65] = "A";
+        Keys[Keys["D"] = 68] = "D";
     })(Enum.Keys || (Enum.Keys = {}));
     var Keys = Enum.Keys;
 })(Enum || (Enum = {}));
@@ -237,12 +269,19 @@ var Utils = (function () {
 }());
 var Dying = (function () {
     function Dying(c) {
-        this.char = c;
-        this.char.div.className = "dying";
+        this.chars = new Array();
+        for (var _i = 0, _a = this.chars; _i < _a.length; _i++) {
+            var char = _a[_i];
+            char = c;
+            char.div.className = "dying";
+        }
     }
     Dying.prototype.draw = function () {
-        this.char.behaviour = new Idle(this.char);
-        Game.getInstance().gameOver();
+        for (var _i = 0, _a = this.chars; _i < _a.length; _i++) {
+            var char = _a[_i];
+            char.behaviour = new Idle(char);
+            Game.getInstance().gameOver();
+        }
     };
     Dying.prototype.onKeyDown = function (e) {
     };
@@ -252,18 +291,38 @@ var Dying = (function () {
 }());
 var Idle = (function () {
     function Idle(c) {
-        this.char = c;
+        this.chars = new Array();
+        for (var _i = 0, _a = this.chars; _i < _a.length; _i++) {
+            var char = _a[_i];
+            char = c;
+        }
     }
     Idle.prototype.draw = function () {
-        this.char.xspeed = 0;
-        this.char.div.className = "idle";
+        for (var _i = 0, _a = this.chars; _i < _a.length; _i++) {
+            var char = _a[_i];
+            char.xspeed = 0;
+            char.div.className = "idle";
+        }
     };
     Idle.prototype.onKeyDown = function (e) {
-        if (e.keyCode == Enum.Keys.RIGHT && this.char.behaviour instanceof Idle) {
-            this.char.behaviour = new Running(this.char, "right");
-        }
-        else if (e.keyCode == Enum.Keys.LEFT && this.char.behaviour instanceof Idle) {
-            this.char.behaviour = new Running(this.char, "left");
+        for (var _i = 0, _a = this.chars; _i < _a.length; _i++) {
+            var char = _a[_i];
+            if (char instanceof Alien) {
+                if (e.keyCode == Enum.Keys.RIGHT && char.behaviour instanceof Idle) {
+                    char.behaviour = new Running(char, "right");
+                }
+                else if (e.keyCode == Enum.Keys.LEFT && char.behaviour instanceof Idle) {
+                    char.behaviour = new Running(char, "left");
+                }
+            }
+            if (char instanceof Astronaut) {
+                if (e.keyCode == Enum.Keys.D && char.behaviour instanceof Idle) {
+                    char.behaviour = new Running(char, "d");
+                }
+                else if (e.keyCode == Enum.Keys.A && char.behaviour instanceof Idle) {
+                    char.behaviour = new Running(char, "a");
+                }
+            }
         }
     };
     Idle.prototype.onKeyUp = function (e) {
@@ -272,35 +331,80 @@ var Idle = (function () {
 }());
 var Running = (function () {
     function Running(c, direction) {
-        this.char = c;
-        this.char.div.className = "running";
-        this.direction = direction;
-        if (this.direction == "right") {
-            this.char.xspeed = 6;
-        }
-        else if (this.direction == "left") {
-            this.char.xspeed = -6;
+        this.chars = new Array();
+        for (var _i = 0, _a = this.chars; _i < _a.length; _i++) {
+            var char = _a[_i];
+            char = c;
+            char.div.className = "running";
+            direction = direction;
+            if (char instanceof Alien) {
+                if (this.direction == "right") {
+                    char.xspeed = 4;
+                }
+                else if (this.direction == "left") {
+                    char.xspeed = -4;
+                }
+            }
+            if (char instanceof Astronaut) {
+                if (this.direction == "d") {
+                    char.xspeed = 6;
+                }
+                else if (this.direction == "a") {
+                    char.xspeed = -6;
+                }
+            }
         }
     }
     Running.prototype.draw = function () {
-        this.char.x += this.char.xspeed;
+        for (var _i = 0, _a = this.chars; _i < _a.length; _i++) {
+            var char = _a[_i];
+            char.x += char.xspeed;
+        }
     };
     Running.prototype.onKeyDown = function (e) {
-        if (e.keyCode == Enum.Keys.RIGHT && this.char.behaviour instanceof Running) {
-            this.char.xspeed = 6;
-        }
-        if (e.keyCode == Enum.Keys.LEFT && this.char.behaviour instanceof Running) {
-            this.char.xspeed = -6;
+        for (var _i = 0, _a = this.chars; _i < _a.length; _i++) {
+            var char = _a[_i];
+            if (char instanceof Alien) {
+                if (e.keyCode == Enum.Keys.RIGHT && char.behaviour instanceof Running) {
+                    char.xspeed = 6;
+                }
+                if (e.keyCode == Enum.Keys.LEFT && char.behaviour instanceof Running) {
+                    char.xspeed = -6;
+                }
+            }
+            if (char instanceof Astronaut) {
+                if (e.keyCode == Enum.Keys.D && char.behaviour instanceof Running) {
+                    char.xspeed = 6;
+                }
+                if (e.keyCode == Enum.Keys.A && char.behaviour instanceof Running) {
+                    char.xspeed = -6;
+                }
+            }
         }
     };
     Running.prototype.onKeyUp = function (e) {
-        if (e.keyCode == Enum.Keys.RIGHT && this.char.behaviour instanceof Running) {
-            this.char.xspeed = 0;
-            this.char.behaviour = new Idle(this.char);
-        }
-        if (e.keyCode == Enum.Keys.LEFT && this.char.behaviour instanceof Running) {
-            this.char.xspeed = 0;
-            this.char.behaviour = new Idle(this.char);
+        for (var _i = 0, _a = this.chars; _i < _a.length; _i++) {
+            var char = _a[_i];
+            if (char instanceof Alien) {
+                if (e.keyCode == Enum.Keys.RIGHT && char.behaviour instanceof Running) {
+                    char.xspeed = 0;
+                    char.behaviour = new Idle(char);
+                }
+                if (e.keyCode == Enum.Keys.LEFT && char.behaviour instanceof Running) {
+                    char.xspeed = 0;
+                    char.behaviour = new Idle(char);
+                }
+            }
+            if (char instanceof Astronaut) {
+                if (e.keyCode == Enum.Keys.D && char.behaviour instanceof Running) {
+                    char.xspeed = 0;
+                    char.behaviour = new Idle(char);
+                }
+                if (e.keyCode == Enum.Keys.A && char.behaviour instanceof Running) {
+                    char.xspeed = 0;
+                    char.behaviour = new Idle(char);
+                }
+            }
         }
     };
     return Running;
@@ -325,51 +429,77 @@ var Screens;
             _super.call(this, 'gamescreen');
             this.score = 0;
             this.death = false;
-            this.char = new Character(this.div);
             this.gameObjects = new Array();
+            this.characters = new Array();
             requestAnimationFrame(function () { return _this.gameLoop(); });
             this.fallInterval = setInterval(function () {
                 for (var i = 0; i < (Math.random() * 3) + 2; i++) {
                     _this.gameObjects.push(new Apple(i));
+                    console.log("new apple");
                 }
                 for (var i = 0; i < (Math.random() * 2) + 1; i++) {
-                    _this.gameObjects.push(new Bomb(i, _this.char));
+                    for (var _i = 0, _a = _this.characters; _i < _a.length; _i++) {
+                        var char = _a[_i];
+                        _this.gameObjects.push(new Bomb(i, char));
+                    }
                 }
             }, 1500);
+            this.characters.push(new Alien());
+            this.characters.push(new Astronaut());
         }
         GameScreen.prototype.gameLoop = function () {
             var _this = this;
-            this.char.draw();
-            for (var _i = 0, _a = this.gameObjects; _i < _a.length; _i++) {
-                var gameObject = _a[_i];
+            for (var _i = 0, _a = this.characters; _i < _a.length; _i++) {
+                var char = _a[_i];
+                char.draw();
+                Utils.checkForScreenBorders(char);
+            }
+            for (var _b = 0, _c = this.gameObjects; _b < _c.length; _b++) {
+                var gameObject = _c[_b];
                 if (gameObject instanceof Bomb) {
                     if (gameObject.y >= 420 && gameObject instanceof Bomb) {
                         gameObject.stop();
                     }
-                    if (Utils.hasOverlap(this.char, gameObject) && gameObject instanceof Bomb) {
-                        Utils.removeFromGame(gameObject, this.gameObjects);
-                        this.char.behaviour = new Dying(this.char);
-                        Game.getInstance().gameOver();
-                        this.div.remove();
-                        this.death = true;
-                        clearInterval(this.fallInterval);
+                    for (var _d = 0, _e = this.characters; _d < _e.length; _d++) {
+                        var char = _e[_d];
+                        if (char instanceof Alien) {
+                            if (Utils.hasOverlap(char, gameObject) && gameObject instanceof Bomb) {
+                                Utils.removeFromGame(gameObject, this.gameObjects);
+                                char.behaviour = new Dying(char);
+                                Game.getInstance().gameOver();
+                                this.div.remove();
+                                char.div.remove();
+                                this.death = true;
+                                clearInterval(this.fallInterval);
+                            }
+                            gameObject.draw();
+                        }
+                        if (char instanceof Astronaut) {
+                            if (Utils.hasOverlap(char, gameObject) && gameObject instanceof Bomb) {
+                                Utils.removeFromGame(gameObject, this.gameObjects);
+                                this.score--;
+                                var scoreDiv = document.getElementById("score");
+                                scoreDiv.innerHTML = "Score: " + this.score;
+                            }
+                        }
                     }
-                    gameObject.draw();
                 }
                 if (gameObject instanceof Apple) {
                     if (gameObject.y >= 380 && gameObject instanceof Apple) {
                         gameObject.stop();
                     }
-                    if (Utils.hasOverlap(this.char, gameObject) && gameObject instanceof Apple) {
-                        Utils.removeFromGame(gameObject, this.gameObjects);
-                        this.score++;
-                        var scoreDiv = document.getElementById("score");
-                        scoreDiv.innerHTML = "Score: " + this.score;
+                    for (var _f = 0, _g = this.characters; _f < _g.length; _f++) {
+                        var char = _g[_f];
+                        if (Utils.hasOverlap(char, gameObject) && gameObject instanceof Apple) {
+                            Utils.removeFromGame(gameObject, this.gameObjects);
+                            this.score++;
+                            var scoreDiv = document.getElementById("score");
+                            scoreDiv.innerHTML = "Score: " + this.score;
+                        }
                     }
                     gameObject.draw();
                 }
             }
-            Utils.checkForScreenBorders(this.char);
             if (this.death == false) {
                 requestAnimationFrame(function () { return _this.gameLoop(); });
             }

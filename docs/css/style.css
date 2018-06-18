@@ -21,9 +21,15 @@ score {
     width:100%;
 }
 
-character {
+alien {
     background-image: url(../images/character.png);
     width:122px; height: 158px;
+}
+
+astronaut {
+    background-image: url(../images/astronaut.png);
+    width:122px; height: 158px;
+    background-size: 100%;
 }
 
 gamescreen {

@@ -1,8 +1,8 @@
 class Character implements Observable {
 
     public behaviour: Behaviour;
-    private subscribers:Array<Observer>;
-    private clicks:number;
+    public subscribers:Array<Observer>;
+    public clicks:number;
 
     public div: HTMLElement;
     public x: number;
@@ -14,10 +14,12 @@ class Character implements Observable {
     public height: number;
     public leftBorderHit: boolean;
     public rightBorderHit: boolean;
+    private container: HTMLElement;
 
-    constructor(parent: HTMLElement) {
-        this.div = document.createElement("character");
-        parent.appendChild(this.div);
+    constructor(name:string) {
+        this.div = document.createElement(name);
+        this.container = document.getElementById('container');
+        this.container.appendChild(this.div);
 
         this.behaviour = new Idle(this);
         this.subscribers = [];
@@ -26,8 +28,6 @@ class Character implements Observable {
         this.height = 158;
         this.xspeed = 0;
         this.yspeed = 0;
-        this.x = 30;
-        this.y = 350;
         this.clicks = 0;
 
         this.net = new Net(this.div);
@@ -38,10 +38,10 @@ class Character implements Observable {
 
     }
 
-    private onKeyDown(e: KeyboardEvent): void {
+    public onKeyDown(e: KeyboardEvent): void {
         this.behaviour.onKeyDown(e);
     }
-    private onKeyUp(e: KeyboardEvent): void {
+    public onKeyUp(e: KeyboardEvent): void {
         this.behaviour.onKeyUp(e);
     }
     public draw(): void {
@@ -51,12 +51,10 @@ class Character implements Observable {
     }
 
     // er is op character geklikt
-    private onClick():void {
+    public onClick():void {
 
-            this.div.style.backgroundImage = "url('images/clickchar.png')";
-
-            for (let bomb of this.subscribers) {
-                bomb.notify();
+        for (let bomb of this.subscribers) {
+            bomb.notify();
         }
     }
 

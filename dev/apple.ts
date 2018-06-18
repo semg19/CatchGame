@@ -1,6 +1,6 @@
 /// <reference path= "gameobject.ts"/>
 
-class Apple extends GameObject{
+class Apple extends GameObject {
 
     private speed: number; 
 

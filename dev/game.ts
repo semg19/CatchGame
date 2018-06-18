@@ -2,11 +2,11 @@
 /// <reference path="bomb.ts"/>
 
 class Game {
-    public static instance: Game;
+    private static instance: Game;
 
     private screen: Screens.FirstScreen;
 
-    constructor() {
+    private constructor() {
     }
 
     public static getInstance() {

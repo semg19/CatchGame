@@ -4,16 +4,16 @@ class Bomb extends GameObject implements Observer {
 
     private speed: number; 
     private active:boolean;
-    private character:Character;
+    private char:Character;
 
-    constructor(i, c:Character) {
+    constructor(i, a:Alien) {
         super("bomb");
 
         this.width = 30;
         this.height = 30;
         this.active = true;
-        this.character = c;
-        this.character.subscribe(this);
+        this.char = a;
+        this.char.subscribe(this);
 
         this.x = i * 1000 + (Math.random() * 750);;
         this.y = 0.01;

@@ -1,15 +1,20 @@
 class Dying implements Behaviour {
-    char: Character;
+    chars: Array<Character>;
 
     constructor(c: Character) {
-        this.char = c;
+        this.chars = new Array<Character>();
+        for (let char of this.chars) {
+            char = c;
 
-        this.char.div.className = "dying";
+            char.div.className = "dying";
+        }
     }
 
     draw() {
-        this.char.behaviour = new Idle(this.char);
-        Game.getInstance().gameOver();
+        for (let char of this.chars) {
+            char.behaviour = new Idle(char);
+            Game.getInstance().gameOver();
+        }
     }
 
     onKeyDown(e: KeyboardEvent) {

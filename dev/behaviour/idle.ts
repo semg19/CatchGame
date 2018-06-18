@@ -1,21 +1,37 @@
 class Idle implements Behaviour {
-    char: Character;
+    chars: Array<Character>;
 
     constructor(c: Character) {
-        this.char = c;
+        this.chars = new Array<Character>();
+        for (let char of this.chars) {
+            char = c;
+        }
     }
 
     draw() {
-        this.char.xspeed = 0;
-        this.char.div.className = "idle";
+        for (let char of this.chars) {
+            char.xspeed = 0;
+            char.div.className = "idle";
+        }
     }
 
     onKeyDown(e: KeyboardEvent) {
-        if (e.keyCode == Enum.Keys.RIGHT && this.char.behaviour instanceof Idle) {
-            this.char.behaviour = new Running(this.char, "right");
-        } else if (e.keyCode == Enum.Keys.LEFT && this.char.behaviour instanceof Idle) {
-            this.char.behaviour = new Running(this.char, "left");
-        } 
+        for (let char of this.chars) {
+            if (char instanceof Alien) {
+                if (e.keyCode == Enum.Keys.RIGHT && char.behaviour instanceof Idle) {
+                    char.behaviour = new Running(char, "right");
+                } else if (e.keyCode == Enum.Keys.LEFT && char.behaviour instanceof Idle) {
+                    char.behaviour = new Running(char, "left");
+                } 
+            }
+            if (char instanceof Astronaut) {
+                if (e.keyCode == Enum.Keys.D && char.behaviour instanceof Idle) {
+                    char.behaviour = new Running(char, "d");
+                } else if (e.keyCode == Enum.Keys.A && char.behaviour instanceof Idle) {
+                    char.behaviour = new Running(char, "a");
+                } 
+            }
+        }
     }
 
     onKeyUp(e: KeyboardEvent) {

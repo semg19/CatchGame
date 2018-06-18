@@ -24,15 +24,21 @@ Live versie: https://semg19.github.io/CatchGame/
 
 ## Pull request
 
-https://github.com/semg19/typescript
+(Hier komt de request link)
+
+Oude request: https://github.com/semg19/typescript
 
 ## Peer review
 
-https://github.com/semg19/GamePRG8
+(Hier komt de review link)
+
+Oude review: https://github.com/semg19/GamePRG8
 
 ## Singleton
 
-De class Game in game.ts heb ik een singleton gemaakt. Dit heb ik gedaan zodat ik een reference kan krijgen naar de game en op basis hiervan StartScreen kan tonen.
+De class Game in game.ts heb ik een singleton gemaakt. Dit heb ik gedaan zodat ik een reference kan krijgen naar de game en op basis hiervan StartScreen kan tonen. instance Game is private en constructor is private zodat er niet een tweede game in main aangemaakt kan worden.
+
+```private static instance: Game; private constructor()```
 
 ## Polymorfisme
 
@@ -44,7 +50,7 @@ Alle verschillende soorten gedrag (Dying, Running, Idle) heb ik verwerkt bij beh
 
 ## Observer
 
-Character is een observable en Bomb is een observer. Als je op Character klikt gaan de Bombs die in het scherm zijn exploderen. Dit voegt een nieuw spelelement toe aan de game. 
+Character is een observable en Bomb is een observer. Als je op Character klikt gaan de Bombs die in het scherm zijn exploderen. Dit voegt een nieuw spelelement toe aan de game. In character.ts staan de functies subscribe en unsubscribe en in bomb.ts staat ```this.char.subscribe(this);``` en de notify functie.
 
 ## Verdere programmeer principes:
 
