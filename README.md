@@ -41,7 +41,7 @@ Oude request: https://github.com/semg19/typescript
 
 ## Peer review
 
-(Hier komt de review link)
+- Link naar peer review: https://github.com/BasD92/battle-game/issues/4
 
 Oude review: https://github.com/semg19/GamePRG8
 
@@ -61,13 +61,21 @@ In gamescreen.ts wordt gebruik gemaakt van Array GameObject die vervolgens doorm
 ```
 this.gameObjects.push(new Apple(i));
 this.gameObjects.push(new Bomb(i, char)); 
+
+for (let char of this.characters) {                    
+    gameObject.draw(); 
+}
 ```
 
-In gamescreen.ts zie je ook dat Characters in een array gestopt zijn. Alien en Astronaut extenden deze character class en daarom je je ze pushen vanuit de character array.
+In gamescreen.ts zie je ook dat Characters in een array gestopt zijn. Alien en Astronaut extenden deze character class en daarom je je ze pushen vanuit de character array. Draw wordt ook net zoals gameObjects vanuit de for loop met alle characters aangeroepen.
 
 ```
 this.characters.push(new Astronaut());
 this.characters.push(new Alien());
+
+for (let char of this.characters) {
+    char.draw()
+}
 ```
 
 ## Strategy
