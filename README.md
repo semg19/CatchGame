@@ -34,8 +34,8 @@ Live versie: https://semg19.github.io/CatchGame/
 
 Ik heb schermen (start, game en game over) aan de game toegevoegd en een betere afhandeling gemaakt voor game over. Dit was namelijk alleen nog een console.log bij game over.
 
-Link naar pull request: https://github.com/BasD92/battle-game/pull/3
-Link naar fork: https://github.com/semg19/battle-game
+- Link naar pull request: https://github.com/BasD92/battle-game/pull/3
+- Link naar fork: https://github.com/semg19/battle-game
 
 Oude request: https://github.com/semg19/typescript
 
@@ -74,10 +74,10 @@ this.characters.push(new Alien());
 
 Alle verschillende soorten gedrag (Dying, Running, Idle, Eating) heb ik verwerkt bij behaviour. In het mapje behaviour staat de interface en de behaviours die daar gebruik van maken. Deze behaviours worden gebruikt om character van gedrag te laten veranderen. Hierdoor is de character class overzichelijker, staan alle behaviours gescheiden van elkaar en is het makkelijker om nieuwe soorten gedrag toe te voegen.
 
-Dying: Alien is geraakt door bom en is game over.
-Eating: Alien eet een appel.
-Idle: Alien staat stil.
-Running: Alien beweegt naar links of rechts.
+- Dying: Alien is geraakt door bom en is game over.
+- Eating: Alien eet een appel.
+- Idle: Alien staat stil.
+- Running: Alien beweegt naar links of rechts.
 
 ## Observer
 
