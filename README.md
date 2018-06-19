@@ -3,7 +3,15 @@ Game for PRG08
 
 ## Inleiding
 
-In de game is de bedoeling dat je zoveel mogelijk appels vangt, als je een bom vangt ben je af. Bommen kan je laten exploderen door op de character te klikken. Maar pas op want de bom blijft effectief na de explosie dus let goed op waar je een bom laat exploderen.
+In de game is de bedoeling dat je zoveel mogelijk appels vangt. De alien heeft als taak om deze appels op te vangen. De alien eet deze appel direct op wanneer hij opgevangen is. Tijdens het eten is het belangrijk om de alien te beschermen omdat hij even stil staat en er ook bommen naar beneden komen vallen die doedelijk zijn voor de alien. Daarom komt de astronaut helpen om deze bommen te laten exploderen. Deze bommen kan je laten exploderen door op de astronaut te klikken. Maar pas op want de bom blijft effectief na de explosie dus let goed op waar je een bom laat exploderen. 
+
+Effecten appels
+- Astronaut: +1
+- Alien: +1
+
+Effecten bom
+- Astronaut: -1
+- Alien: game over
 
 ## Speelbare game
 
@@ -24,7 +32,10 @@ Live versie: https://semg19.github.io/CatchGame/
 
 ## Pull request
 
-(Hier komt de request link)
+Ik heb schermen (start, game en game over) aan de game toegevoegd en een betere afhandeling gemaakt voor game over. Dit was namelijk alleen nog een console.log bij game over.
+
+Link naar pull request: https://github.com/BasD92/battle-game/pull/3
+Link naar fork: https://github.com/semg19/battle-game
 
 Oude request: https://github.com/semg19/typescript
 
@@ -61,7 +72,12 @@ this.characters.push(new Alien());
 
 ## Strategy
 
-Alle verschillende soorten gedrag (Dying, Running, Idle) heb ik verwerkt bij behaviour. In het mapje behaviour staat de interface en de behaviours die daar gebruik van maken. Deze behaviours worden gebruikt om character van gedrag te laten veranderen. Hierdoor is de character class overzichelijker, staan alle behaviours gescheiden van elkaar en is het makkelijker om nieuwe soorten gedrag toe te voegen.
+Alle verschillende soorten gedrag (Dying, Running, Idle, Eating) heb ik verwerkt bij behaviour. In het mapje behaviour staat de interface en de behaviours die daar gebruik van maken. Deze behaviours worden gebruikt om character van gedrag te laten veranderen. Hierdoor is de character class overzichelijker, staan alle behaviours gescheiden van elkaar en is het makkelijker om nieuwe soorten gedrag toe te voegen.
+
+Dying: Alien is geraakt door bom en is game over.
+Eating: Alien eet een appel.
+Idle: Alien staat stil.
+Running: Alien beweegt naar links of rechts.
 
 ## Observer
 
