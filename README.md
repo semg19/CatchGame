@@ -50,8 +50,20 @@ Oude review: https://github.com/semg19/GamePRG8
 De class Game in game.ts heb ik een singleton gemaakt. Dit heb ik gedaan zodat ik een reference kan krijgen naar de game en op basis hiervan StartScreen kan tonen. instance Game is private en constructor is private zodat er niet een tweede game in main aangemaakt kan worden.
 
 ```
-private static instance: Game; 
-private constructor()
+private static instance: Game;
+
+    private screen: Screens.FirstScreen;
+
+    private constructor() {
+    }
+
+    public static getInstance() {
+        if (!Game.instance) {
+            Game.instance = new Game();
+            Game.instance.showStartScreen();
+        }
+        return Game.instance;
+    }
 ```
 
 ## Polymorfisme
