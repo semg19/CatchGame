@@ -91,6 +91,10 @@ Alle verschillende soorten gedrag (Dying, Running, Idle, Eating) heb ik verwerkt
 
 Character is een observable en Bomb is een observer. Als je op Character klikt gaan de Bombs die in het scherm zijn exploderen. Dit voegt een nieuw spelelement toe aan de game. In character.ts staan de functies subscribe en unsubscribe en in bomb.ts staat ```this.char.subscribe(this);``` en de notify functie.
 
+## Gameplay componenten
+- De game gebruikt een externe library: Ik maak gebruik van GreenSock in StartScreen voor de button. Dit geeft het StartScreen meer leven en maakt het spel aantrekkelijker om te gaan spelen.
+- De game heeft interactief muziek: De game is voorzien van muziek tijdens het spel en bij gameover.
+
 ## Verdere programmeer principes:
 
 - Interface: Behaviour is een interface en wordt gebruikt voor het gedrag van het character.
@@ -104,8 +108,3 @@ PRG04:
 -   Encapsulation: Elke variabele is private, public of protected. 
 -   Composition: De character heeft een net bij zich.
 -   Inheritance: GameScreen en StartScreen erven van FirstScreen. Apple en Bomb erven van GameObject.
-
-## Gameplay componenten
-- De game ziet er visueel aantrekkelijk uit. Er is aandacht besteed aan een
-solide UI en aan een consistent grafisch ontwerp: Ik heb een zelfde soort design proberen aan te houden bij de images en de game kindvriendelijk gemaakt. Ook heb ik met het toevoegen van schermen een fijnere visuele ervaring gegeven.
-- De game heeft interactief muziek: De game is voorzien van muziek tijdens het spel en bij gameover.

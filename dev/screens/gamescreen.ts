@@ -7,7 +7,7 @@ namespace Screens {
         private death: Boolean = false;
         private fallInterval: number;
         private gameObjects: Array<GameObject>;
-        public characters: Array<Character>;
+        private characters: Array<Character>;
         private sound: HTMLAudioElement;
 
         constructor() {

@@ -2,7 +2,7 @@
 
 class Net {
     public div: HTMLElement;
-    private x: number;
+    public x: number;
     public y: number;
     private speed: number;
 
