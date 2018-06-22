@@ -52,18 +52,18 @@ De class Game in game.ts heb ik een singleton gemaakt. Dit heb ik gedaan zodat i
 ```
 private static instance: Game;
 
-    private screen: Screens.FirstScreen;
+private screen: Screens.FirstScreen;
 
-    private constructor() {
-    }
+private constructor() {
+}
 
-    public static getInstance() {
-        if (!Game.instance) {
-            Game.instance = new Game();
-            Game.instance.showStartScreen();
-        }
-        return Game.instance;
+public static getInstance() {
+    if (!Game.instance) {
+        Game.instance = new Game();
+        Game.instance.showStartScreen();
     }
+    return Game.instance;
+}
 ```
 
 ## Polymorfisme
