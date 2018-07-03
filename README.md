@@ -33,6 +33,8 @@ Live versie: https://semg19.github.io/CatchGame/
 ## Pull request
 
 Ik heb schermen (start, game en game over) aan de game toegevoegd en een betere afhandeling gemaakt voor game over. Dit was namelijk alleen nog een console.log bij game over.
+Ook heb ik aanpassingen gemaakt in OOP-polymorfisme. Zo heb ik ... private zombies: Array<Zombie> = new Array(); private objects: Array<GameObject> = new Array(); ... samengevoegd om OOP op een juiste manier toe te passen. Ik heb hiervoor zombies weggehaald en alleen GameObject laten staan. ... for (let zombie of this.objects) { if (zombie instanceof Zombie) { ... zorgt voor het aanroepen van Zombie in GameObject.
+Zie de pull request link voor beide toevoegingen.
 
 - Link naar pull request: https://github.com/BasD92/battle-game/pull/3
 - Link naar fork: https://github.com/semg19/battle-game
